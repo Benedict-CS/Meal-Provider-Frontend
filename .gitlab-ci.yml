@@ -3,6 +3,8 @@ stages:
 
 check_version:
   stage: test
+  tags:
+    - docker
   image: docker:19.03.12-dind
   script:
     - echo "Checking version..."
