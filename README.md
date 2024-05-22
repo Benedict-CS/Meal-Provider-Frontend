@@ -1,6 +1,11 @@
 # Meal Provider Front-End
 
-
+## How to use
+```
+cd .\typescript-version\full-version\
+npm install
+npm run dev
+```
 
 ## Getting started
 
