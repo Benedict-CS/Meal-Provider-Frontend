@@ -3,6 +3,7 @@
 ## How to use
 ```
 cd .\typescript-version\full-version\
+cp .env.example .env
 npm install
 npm run dev
 ```
