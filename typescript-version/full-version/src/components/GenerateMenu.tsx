@@ -22,7 +22,7 @@ import type {
 } from '@/types/menuTypes'
 
 // Component Imports
-import { SubMenu as HorizontalSubMenu, MenuItem as HorizontalMenuItem } from '@menu/horizontal-menu'
+// import { SubMenu as HorizontalSubMenu, MenuItem as HorizontalMenuItem } from '@menu/horizontal-menu'
 import { SubMenu as VerticalSubMenu, MenuItem as VerticalMenuItem, MenuSection } from '@menu/vertical-menu'
 
 // Util Imports
@@ -139,9 +139,9 @@ export const GenerateHorizontalMenu = ({ menuData }: { menuData: HorizontalMenuD
 
         // If it is, return a SubMenu component and call generateMenu with the current subMenuItem's children
         return (
-          <HorizontalSubMenu key={index} prefix={subMenuPrefix} suffix={subMenuSuffix} {...rest} icon={icon}>
-            {children && renderMenuItems(children)}
-          </HorizontalSubMenu>
+          // <HorizontalSubMenu key={index} prefix={subMenuPrefix} suffix={subMenuSuffix} {...rest} icon={icon}>
+          //   {children && renderMenuItems(children)}
+          // </HorizontalSubMenu>
         )
       }
 
@@ -160,16 +160,16 @@ export const GenerateHorizontalMenu = ({ menuData }: { menuData: HorizontalMenuD
         suffix && (suffix as ChipProps).label ? <Chip size='small' {...(suffix as ChipProps)} /> : (suffix as ReactNode)
 
       return (
-        <HorizontalMenuItem
-          key={index}
-          prefix={menuItemPrefix}
-          suffix={menuItemSuffix}
-          {...rest}
-          icon={icon}
-          href={href}
-        >
-          {menuItem.label}
-        </HorizontalMenuItem>
+        // <HorizontalMenuItem
+        //   key={index}
+        //   prefix={menuItemPrefix}
+        //   suffix={menuItemSuffix}
+        //   {...rest}
+        //   icon={icon}
+        //   href={href}
+        // >
+        //   {menuItem.label}
+        // </HorizontalMenuItem>
       )
     })
   }

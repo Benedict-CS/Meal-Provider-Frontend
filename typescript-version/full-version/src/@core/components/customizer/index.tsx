@@ -175,13 +175,13 @@ const Customizer = ({ breakpoint = 'lg', dir = 'ltr', disableDirection = false }
           [styles.smallScreen]: isMobileScreen
         })}
       >
-        <div
+        {/* <div
           className={classnames('customizer-toggler flex items-center justify-center cursor-pointer', styles.toggler)}
           onClick={handleToggle}
         >
           <i className='tabler-settings text-[22px]' />
-        </div>
-        <div className={classnames('customizer-header flex items-center justify-between', styles.header)}>
+        </div> */}
+        {/* <div className={classnames('customizer-header flex items-center justify-between', styles.header)}>
           <div className='flex flex-col'>
             <h4 className={styles.customizerTitle}>Theme Customizer</h4>
             <p className={styles.customizerSubtitle}>Customize & Preview in Real Time</p>
@@ -193,7 +193,7 @@ const Customizer = ({ breakpoint = 'lg', dir = 'ltr', disableDirection = false }
             </div>
             <i className={classnames('tabler-x cursor-pointer', styles.textPrimaryColor)} onClick={handleToggle} />
           </div>
-        </div>
+        </div> */}
         <ScrollWrapper
           {...(isBelowLgScreen
             ? { className: 'bs-full overflow-y-auto overflow-x-hidden' }

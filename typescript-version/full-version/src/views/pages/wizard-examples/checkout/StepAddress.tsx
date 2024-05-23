@@ -23,7 +23,7 @@ import classnames from 'classnames'
 import type { CustomInputHorizontalData, CustomInputVerticalData } from '@core/components/custom-inputs/types'
 
 // Component Imports
-import CustomInputHorizontal from '@core/components/custom-inputs/Horizontal'
+// import CustomInputHorizontal from '@core/components/custom-inputs/Horizontal'
 import CustomInputVertical from '@core/components/custom-inputs/Vertical'
 import AddEditAddress from '@components/dialogs/add-edit-address'
 import OpenDialogOnElementClick from '@components/dialogs/OpenDialogOnElementClick'
@@ -174,7 +174,7 @@ const StepAddress = ({ handleNext }: { handleNext: () => void }) => {
             Select your preferable address
           </Typography>
           <Grid container spacing={6}>
-            {data.map((item, index) => (
+            {/* {data.map((item, index) => (
               <CustomInputHorizontal
                 type='radio'
                 key={index}
@@ -184,7 +184,7 @@ const StepAddress = ({ handleNext }: { handleNext: () => void }) => {
                 name='custom-radios-basic'
                 handleChange={handleOptionChange}
               />
-            ))}
+            ))} */}
           </Grid>
           <OpenDialogOnElementClick element={Button} elementProps={buttonProps} dialog={AddEditAddress} />
         </div>

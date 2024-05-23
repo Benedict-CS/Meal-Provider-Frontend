@@ -22,7 +22,7 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import type { CustomInputHorizontalData } from '@core/components/custom-inputs/types'
 
 // Component Imports
-import CustomInputHorizontal from '@core/components/custom-inputs/Horizontal'
+// import CustomInputHorizontal from '@core/components/custom-inputs/Horizontal'
 import CustomTextField from '@core/components/mui/TextField'
 
 type FormData = {
@@ -222,7 +222,7 @@ const FormLayoutsCollapsible = () => {
         <Divider />
         <AccordionDetails className='!pbs-6'>
           <Grid container>
-            {data.map((item, index) => (
+            {/* {data.map((item, index) => (
               <CustomInputHorizontal
                 type='radio'
                 key={index}
@@ -236,7 +236,7 @@ const FormLayoutsCollapsible = () => {
                 name='custom-radios-basic'
                 handleChange={handleOptionChange}
               />
-            ))}
+            ))} */}
           </Grid>
         </AccordionDetails>
       </Accordion>

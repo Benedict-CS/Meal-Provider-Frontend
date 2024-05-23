@@ -10,10 +10,10 @@ import type {
   MenuItemProps as VerticalMenuItemProps,
   MenuSectionProps as VerticalMenuSectionProps
 } from '@menu/vertical-menu'
-import type {
-  SubMenuProps as HorizontalSubMenuProps,
-  MenuItemProps as HorizontalMenuItemProps
-} from '@menu/horizontal-menu'
+// import type {
+//   SubMenuProps as HorizontalSubMenuProps,
+//   MenuItemProps as HorizontalMenuItemProps
+// } from '@menu/horizontal-menu'
 
 // Vertical Menu Data
 export type VerticalMenuItemDataType = Omit<VerticalMenuItemProps, 'children' | 'icon' | 'prefix' | 'suffix'> & {
@@ -35,16 +35,16 @@ export type VerticalSectionDataType = Omit<VerticalMenuSectionProps, 'children'>
 export type VerticalMenuDataType = VerticalMenuItemDataType | VerticalSubMenuDataType | VerticalSectionDataType
 
 // Horizontal Menu Data
-export type HorizontalMenuItemDataType = Omit<HorizontalMenuItemProps, 'children' | 'icon' | 'prefix' | 'suffix'> & {
-  label: ReactNode
-  icon?: string
-  prefix?: ReactNode | ChipProps
-  suffix?: ReactNode | ChipProps
-}
-export type HorizontalSubMenuDataType = Omit<HorizontalSubMenuProps, 'children' | 'icon' | 'prefix' | 'suffix'> & {
-  children: HorizontalMenuDataType[]
-  icon?: string
-  prefix?: ReactNode | ChipProps
-  suffix?: ReactNode | ChipProps
-}
-export type HorizontalMenuDataType = HorizontalMenuItemDataType | HorizontalSubMenuDataType
+// export type HorizontalMenuItemDataType = Omit<HorizontalMenuItemProps, 'children' | 'icon' | 'prefix' | 'suffix'> & {
+//   label: ReactNode
+//   icon?: string
+//   prefix?: ReactNode | ChipProps
+//   suffix?: ReactNode | ChipProps
+// }
+// export type HorizontalSubMenuDataType = Omit<HorizontalSubMenuProps, 'children' | 'icon' | 'prefix' | 'suffix'> & {
+//   children: HorizontalMenuDataType[]
+//   icon?: string
+//   prefix?: ReactNode | ChipProps
+//   suffix?: ReactNode | ChipProps
+// }
+// export type HorizontalMenuDataType = HorizontalMenuItemDataType | HorizontalSubMenuDataType

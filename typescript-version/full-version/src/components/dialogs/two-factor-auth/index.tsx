@@ -19,7 +19,7 @@ import AlertTitle from '@mui/material/AlertTitle'
 import type { CustomInputHorizontalData } from '@core/components/custom-inputs/types'
 
 // Component Imports
-import CustomInputHorizontal from '@core/components/custom-inputs/Horizontal'
+// import CustomInputHorizontal from '@core/components/custom-inputs/Horizontal'
 import DialogCloseButton from '../DialogCloseButton'
 import CustomTextField from '@core/components/mui/TextField'
 
@@ -187,7 +187,7 @@ const TwoFactorAuth = ({ open, setOpen }: TwoFactorAuthProps) => {
         </DialogTitle>
         <DialogContent className='pbs-0 sm:pli-16'>
           <Grid container spacing={6}>
-            {data.map((item, index) => (
+            {/* {data.map((item, index) => (
               <CustomInputHorizontal
                 type='radio'
                 key={index}
@@ -197,7 +197,7 @@ const TwoFactorAuth = ({ open, setOpen }: TwoFactorAuthProps) => {
                 gridProps={{ xs: 12 }}
                 name='auth-method'
               />
-            ))}
+            ))} */}
           </Grid>
         </DialogContent>
         <DialogActions className='pbs-0 sm:pbe-16 sm:pli-16 flex justify-center'>

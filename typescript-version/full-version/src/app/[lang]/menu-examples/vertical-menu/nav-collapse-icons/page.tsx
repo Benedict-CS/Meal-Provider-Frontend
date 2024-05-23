@@ -7,15 +7,15 @@ import NavToggle from '@components/layout/vertical/NavToggle'
 import VerticalNav, { Menu, MenuItem, SubMenu } from '@menu/vertical-menu'
 
 // Hook
-import useHorizontalNav from '@menu/hooks/useHorizontalNav'
+// import useHorizontalNav from '@menu/hooks/useHorizontalNav'
 
 const NavCollapseIcon = () => {
-  const { isBreakpointReached } = useHorizontalNav()
+  // const { isBreakpointReached } = useHorizontalNav()
 
   return (
     <div className='flex'>
       <VerticalNav customBreakpoint='1100px'>
-        <NavHeader>
+        {/* <NavHeader>
           {!isBreakpointReached && 'Logo'}
           <NavCollapseIcons
             unlockedIcon={<>{'>'}</>}
@@ -24,7 +24,7 @@ const NavCollapseIcon = () => {
             onClick={() => console.log('clicked')}
             onClose={() => console.log('closed')}
           />
-        </NavHeader>
+        </NavHeader> */}
         <Menu menuItemStyles={{ button: { paddingBlock: '12px' } }}>
           <SubMenu label='Dashboards'>
             <MenuItem>Analytics</MenuItem>
