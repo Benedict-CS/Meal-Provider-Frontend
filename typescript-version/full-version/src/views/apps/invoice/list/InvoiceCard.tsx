@@ -31,7 +31,7 @@ const data = [
     icon: 'tabler-checks'
   },
   {
-    title: '$876',
+    title: '$8762',
     subtitle: 'Unpaid',
     icon: 'tabler-circle-off'
   }
