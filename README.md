@@ -13,11 +13,12 @@ npm run dev
 - [x] Login Page (2024/05/23)
 - [x] Home Page (2024/05/23)
 
-### Admin Pages
+### Admin Pages （Finished basic pages view）
 - [x] Menu Management (2024/05/24)
-- [ ] Order Record Management
-- [ ] Credit Management
-- [ ] Rating System Management
+- [x] Order Record Management (2024/05/24)
+- [x] Credit Management (2024/05/24)
+- [x] Rating System Management (2024/05/24)
+
 
 ### User Pages
 - [ ] Menu Page
