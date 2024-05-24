@@ -7,6 +7,25 @@ cp .env.example .env
 npm install
 npm run dev
 ```
+![image](Docs/Images/frontend.png)
+
+### Share Pages
+- [x] Login Page (2024/05/23)
+- [x] Home Page (2024/05/23)
+
+### Admin Pages
+- [x] Menu Management (2024/05/24)
+- [ ] Order Record Management
+- [ ] Credit Management
+- [ ] Rating System Management
+
+### User Pages
+- [ ] Menu Page
+- [ ] Order Page
+- [ ] order Record Page
+- [ ] Credit Record Page
+- [ ] Rating Page
+
 
 ## Getting started
 
