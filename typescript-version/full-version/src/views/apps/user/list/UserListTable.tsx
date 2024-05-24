@@ -1,12 +1,19 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
-import { Card, CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Checkbox, IconButton, TablePagination } from '@mui/material';
-// import EditIcon from '@mui/icons-material/Edit';
-// import DeleteIcon from '@mui/icons-material/Delete';
+import React, { useState } from 'react';
+import { Card, CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, TablePagination } from '@mui/material';
 
-// Dummy data for the table
-const createData = (order, date, customer, payment, status, method) => {
+interface OrderData {
+  order: string;
+  date: string;
+  customer: string;
+  payment: string;
+  status: string;
+  method: string;
+}
+
+// Function to create dummy data for the table
+const createData = (order: string, date: string, customer: string, payment: string, status: string, method: string): OrderData => {
   return { order, date, customer, payment, status, method };
 };
 
@@ -25,16 +32,15 @@ const rows = [
   createData('#9306', 'Apr 19, 2023, 12:05', 'Christine Pfaffe', 'Refund', 'Delivered', 'Cash'),
   // Add more rows as needed
 ];
-
 const OrderListTable = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(3);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number): void => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -45,7 +51,7 @@ const OrderListTable = () => {
         <Typography variant="h5" component="div">
           Order List
         </Typography>
-        <TableContainer style={{ background: 'transparent', boxShadow: 'none' }} component={Paper}>
+        <TableContainer  style={{ background: 'transparent', boxShadow: 'none' }} component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -64,9 +70,7 @@ const OrderListTable = () => {
                   key={row.order}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  <TableCell component="th" scope="row">
-                    {row.order}
-                  </TableCell>
+                  <TableCell component="th" scope="row">{row.order}</TableCell>
                   <TableCell>{row.date}</TableCell>
                   <TableCell>{row.customer}</TableCell>
                   <TableCell>{row.payment}</TableCell>
@@ -74,12 +78,10 @@ const OrderListTable = () => {
                   <TableCell>{row.method}</TableCell>
                   <TableCell>
                     <IconButton aria-label="edit">
-                      {/* <EditIcon /> */}
-                      <i className="tabler-edit">Edit</i>
+                    <i className="tabler-edit">Edit</i>
                     </IconButton>
                     <IconButton aria-label="delete">
                     <i className="tabler-trash">Delete</i>
-                      {/* <DeleteIcon /> */}
                     </IconButton>
                   </TableCell>
                 </TableRow>
@@ -88,7 +90,7 @@ const OrderListTable = () => {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[3, 10, 20]}
+          rowsPerPageOptions={[3, 10, 25]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}

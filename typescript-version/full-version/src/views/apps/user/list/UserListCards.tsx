@@ -16,7 +16,7 @@ const data: UserDataType[] = [
     avatarColor: 'primary',
     change: 'positive',
     changeNumber: '29%',
-    // subTitle: 'Total User'
+    subTitle: ''
   },
   {
     title: 'Completed',
@@ -25,7 +25,7 @@ const data: UserDataType[] = [
     avatarColor: 'error',
     change: 'positive',
     changeNumber: '18%',
-    // subTitle: 'Last week analytics'
+    subTitle: ''
   },
   {
     title: 'Refunded',
@@ -34,7 +34,7 @@ const data: UserDataType[] = [
     avatarColor: 'success',
     change: 'negative',
     changeNumber: '14%',
-    // subTitle: 'Last week analytics'
+    subTitle: ''
   },
   {
     title: 'Failed',
@@ -43,7 +43,7 @@ const data: UserDataType[] = [
     avatarColor: 'warning',
     change: 'positive',
     changeNumber: '42%',
-    // subTitle: 'Last week analytics'
+    subTitle: ''
   }
 ]
 
