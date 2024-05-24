@@ -1,3 +1,16 @@
+export interface Product {
+    id: string;
+    quantity: string;
+    name: string;
+    price: string;
+    description: string;
+    vendor: string;
+    inStock: boolean;
+    category: string;
+    image: string;
+    status: 'Sold Out' | '';
+  }
+
 export const initialProducts: Product[] = [
     {
      id: '1',

@@ -1,33 +1,40 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Card, CardHeader, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from '@mui/material';
-import { initialProducts } from './productsData';
-export interface Product {
-  id: string;
-  quantity: string;
-  name: string;
-  price: string;
-  description: string;
-  vendor: string;
-  inStock: boolean;
-  category: string;
-  image: string;
-  status: 'Sold Out' ;
+import { initialProducts, Product } from './productsData';
+
+interface ProductFormProps {
+  open: boolean;
+  handleClose: () => void;
+  handleSubmit: (formData: Product) => void;
+  product: Product | null;
 }
 
-const ProductForm = ({ open, handleClose, handleSubmit, product }) => {
-  const [formData, setFormData] = useState(product);
+const ProductForm = ({ open, handleClose, handleSubmit, product }: ProductFormProps) => {
+  const [formData, setFormData] = useState<Product>(product || {
+    id: '',
+    name: '',
+    price: '',
+    description: '',
+    vendor: '',
+    inStock: false,
+    category: '',
+    image: '',
+    status: 'Sold Out',
+    quantity:''
+  });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files![0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (loadEvent) => {
-        setFormData(prev => ({ ...prev, image: loadEvent.target.result }));
+      reader.onload = (loadEvent: ProgressEvent<FileReader>) => {
+        const result = loadEvent.target?.result;
+        setFormData(prev => ({ ...prev, image: result ? result as string : prev.image }));
       };
       reader.readAsDataURL(file);
     }
@@ -51,13 +58,13 @@ const ProductForm = ({ open, handleClose, handleSubmit, product }) => {
 };
 
 const ProductManagement = () => {
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = useState<Product[]>(initialProducts);
   const [openForm, setOpenForm] = useState(false);
   const [openImage, setOpenImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  const handleOpenForm = (product = {}) => {
+  const handleOpenForm = (product: Product | null = null) => {
     setSelectedProduct(product);
     setOpenForm(true);
   };
@@ -66,7 +73,7 @@ const ProductManagement = () => {
     setOpenForm(false);
   };
 
-  const handleOpenImage = (imageSrc) => {
+  const handleOpenImage = (imageSrc: string) => {
     setSelectedImage(imageSrc);
     setOpenImage(true);
   };
@@ -75,7 +82,7 @@ const ProductManagement = () => {
     setOpenImage(false);
   };
 
-  const handleSubmit = (newData) => {
+  const handleSubmit = (newData: Product) => {
     if (newData.id) {
       setProducts(products.map(p => p.id === newData.id ? newData : p));
     } else {
@@ -85,7 +92,7 @@ const ProductManagement = () => {
     handleCloseForm();
   };
 
-  const handleDeleteProduct = (productId) => {
+  const handleDeleteProduct = (productId: string) => {
     setProducts(products.filter(product => product.id !== productId));
   };
 
@@ -115,13 +122,12 @@ const ProductManagement = () => {
           {products.map(product => (
             <TableRow key={product.id}>
               <TableCell onClick={() => handleOpenImage(product.image)}>
-                <img src={product.image} alt={product.name} style={{ width: 50, height: 50, cursor: 'pointer', borderRadius: '50%' }} />
+                <img src={product.image} alt={product.name} style={{ width: "50px", height : "50px", cursor: 'pointer', borderRadius: '50%' }} />
               </TableCell>
               <TableCell>{product.name}</TableCell>
               <TableCell>{product.price}</TableCell>
               <TableCell align="center">{product.category}</TableCell>
               <TableCell align="center">{product.quantity}</TableCell>
-
               <TableCell align="center">{product.status}</TableCell>
               <TableCell align="center">
                 <IconButton color="info" onClick={() => handleOpenForm(product)}>
