@@ -1,191 +1,183 @@
-'use client'
-
-// React Imports
-import { useEffect, useRef } from 'react'
-
-// MUI Imports
-import { useTheme } from '@mui/material/styles'
-
-// Third-party imports
-import 'bootstrap-icons/font/bootstrap-icons.css'
-
-import FullCalendar from '@fullcalendar/react'
-import listPlugin from '@fullcalendar/list'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction'
-
-// Type Imports
-import type { AddEventType, CalendarColors, CalendarType } from '@/types/apps/calendarTypes'
-
-type CalenderProps = {
-  mdAbove: boolean
-  calendars: CalendarType
-  calendarApi: any
-  setCalendarApi: (val: any) => void
-  calendarsColor: CalendarColors
-  handleSelectEvent: (event: any) => void
-  handleUpdateEvent: (event: any) => void
-  handleLeftSidebarToggle: () => void
-  handleAddEventSidebarToggle: () => void
+import React, { useState } from 'react';
+import { Card, CardHeader, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from '@mui/material';
+import { initialProducts } from './productsData';
+export interface Product {
+  id: string;
+  quantity: string;
+  name: string;
+  price: string;
+  description: string;
+  vendor: string;
+  inStock: boolean;
+  category: string;
+  image: string;
+  status: 'Sold Out' ;
 }
 
-// Vars
-const blankEvent: AddEventType = {
-  title: '',
-  start: '',
-  end: '',
-  allDay: false,
-  url: '',
-  extendedProps: {
-    calendar: '',
-    guests: [],
-    description: ''
-  }
-}
+const ProductForm = ({ open, handleClose, handleSubmit, product }) => {
+  const [formData, setFormData] = useState(product);
 
-const Calendar = (props: CalenderProps) => {
-  // Props
-  const {
-    calendars,
-    calendarApi,
-    setCalendarApi,
-    calendarsColor,
-    handleSelectEvent,
-    handleUpdateEvent,
-    handleAddEventSidebarToggle,
-    handleLeftSidebarToggle
-  } = props
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
-  // Refs
-  const calendarRef = useRef()
-
-  // Hooks
-  const theme = useTheme()
-
-  useEffect(() => {
-    if (calendarApi === null) {
-      // @ts-ignore
-      setCalendarApi(calendarRef.current?.getApi())
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (loadEvent) => {
+        setFormData(prev => ({ ...prev, image: loadEvent.target.result }));
+      };
+      reader.readAsDataURL(file);
     }
-  }, [calendarApi, setCalendarApi])
+  };
 
-  // calendarOptions(Props)
-  const calendarOptions = {
-    events: calendars.events,
-    plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
-    initialView: 'dayGridMonth',
-    headerToolbar: {
-      start: 'sidebarToggle, prev, next, title',
-      end: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-    },
-    views: {
-      week: {
-        titleFormat: { year: 'numeric', month: 'short', day: 'numeric' }
-      }
-    },
+  return (
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle>{product?.id ? 'Edit Product' : 'Add Product'}</DialogTitle>
+      <DialogContent>
+        <TextField margin="dense" name="name" label="Name" type="text" fullWidth variant="outlined" value={formData.name} onChange={handleChange} />
+        <TextField margin="dense" name="price" label="Price" type="text" fullWidth variant="outlined" value={formData.price} onChange={handleChange} />
+        <TextField margin="dense" name="category" label="Category" type="text" fullWidth variant="outlined" value={formData.category} onChange={handleChange} />
+        <input accept="image/*" type="file" onChange={handleFileChange} />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={() => handleSubmit(formData)}>Submit</Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
 
-    /*
-      Enable dragging and resizing event
-      ? Docs: https://fullcalendar.io/docs/editable
-    */
-    editable: true,
+const ProductManagement = () => {
+  const [products, setProducts] = useState(initialProducts);
+  const [openForm, setOpenForm] = useState(false);
+  const [openImage, setOpenImage] = useState(false);
+  const [selectedImage, setSelectedImage] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-    /*
-      Enable resizing event from start
-      ? Docs: https://fullcalendar.io/docs/eventResizableFromStart
-    */
-    eventResizableFromStart: true,
+  const handleOpenForm = (product = {}) => {
+    setSelectedProduct(product);
+    setOpenForm(true);
+  };
 
-    /*
-      Automatically scroll the scroll-containers during event drag-and-drop and date selecting
-      ? Docs: https://fullcalendar.io/docs/dragScroll
-    */
-    dragScroll: true,
+  const handleCloseForm = () => {
+    setOpenForm(false);
+  };
 
-    /*
-      Max number of events within a given day
-      ? Docs: https://fullcalendar.io/docs/dayMaxEvents
-    */
-    dayMaxEvents: 2,
+  const handleOpenImage = (imageSrc) => {
+    setSelectedImage(imageSrc);
+    setOpenImage(true);
+  };
 
-    /*
-      Determines if day names and week names are clickable
-      ? Docs: https://fullcalendar.io/docs/navLinks
-    */
-    navLinks: true,
+  const handleCloseImage = () => {
+    setOpenImage(false);
+  };
 
-    eventClassNames({ event: calendarEvent }: any) {
-      // @ts-ignore
-      const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar]
+  const handleSubmit = (newData) => {
+    if (newData.id) {
+      setProducts(products.map(p => p.id === newData.id ? newData : p));
+    } else {
+      newData.id = Date.now().toString();
+      setProducts([...products, newData]);
+    }
+    handleCloseForm();
+  };
 
-      return [
-        // Background Color
-        `event-bg-${colorName}`
-      ]
-    },
+  const handleDeleteProduct = (productId) => {
+    setProducts(products.filter(product => product.id !== productId));
+  };
 
-    eventClick({ event: clickedEvent, jsEvent }: any) {
-      jsEvent.preventDefault()
-
-      handleSelectEvent(clickedEvent)
-      handleAddEventSidebarToggle()
-
-      if (clickedEvent.url) {
-        // Open the URL in a new tab
-        window.open(clickedEvent.url, '_blank')
-      }
-
-      //* Only grab required field otherwise it goes in infinity loop
-      //! Always grab all fields rendered by form (even if it get `undefined`)
-      // event.value = grabEventDataFromEventApi(clickedEvent)
-      // isAddNewEventSidebarActive.value = true
-    },
-
-    customButtons: {
-      sidebarToggle: {
-        icon: 'tabler tabler-menu-2',
-        click() {
-          handleLeftSidebarToggle()
+  return (
+    <Card style={{ background: 'transparent', boxShadow: 'none' }}>
+      <CardHeader
+        title="Product Management"
+        action={
+          <IconButton color="primary" onClick={() => handleOpenForm()}>
+            <i className="tabler-plus">Add</i>
+          </IconButton>
         }
-      }
-    },
+      />
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Image</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell>Price</TableCell>
+            <TableCell align="center">Category</TableCell>
+            <TableCell align="center">Quantity</TableCell>
+            <TableCell align="center">Status</TableCell>
+            <TableCell align="center">Actions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {products.map(product => (
+            <TableRow key={product.id}>
+              <TableCell onClick={() => handleOpenImage(product.image)}>
+                <img src={product.image} alt={product.name} style={{ width: 50, height: 50, cursor: 'pointer', borderRadius: '50%' }} />
+              </TableCell>
+              <TableCell>{product.name}</TableCell>
+              <TableCell>{product.price}</TableCell>
+              <TableCell align="center">{product.category}</TableCell>
+              <TableCell align="center">{product.quantity}</TableCell>
 
-    dateClick(info: any) {
-      const ev = { ...blankEvent }
+              <TableCell align="center">{product.status}</TableCell>
+              <TableCell align="center">
+                <IconButton color="info" onClick={() => handleOpenForm(product)}>
+                  <i className="tabler-edit">Edit</i>
+                </IconButton>
+                <IconButton color="secondary" onClick={() => handleDeleteProduct(product.id)}>
+                  <i className="tabler-trash">Delete</i>
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      {openForm && (
+        <ProductForm
+          open={openForm}
+          handleClose={handleCloseForm}
+          handleSubmit={handleSubmit}
+          product={selectedProduct}
+        />
+      )}
+      {openImage && (
+        <Dialog open={openImage} onClose={handleCloseImage}>
+          <DialogTitle>Image Preview</DialogTitle>
+          <DialogContent>
+            <img src={selectedImage} alt="Zoomed In" style={{ maxWidth: '100%' }} />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseImage}>Close</Button>
+          </DialogActions>
+        </Dialog>
+      )}
+    </Card>
+  );
+};
 
-      ev.start = info.date
-      ev.end = info.date
-      ev.allDay = true
+export default ProductManagement;
 
-      handleSelectEvent(ev)
-      handleAddEventSidebarToggle()
-    },
 
-    /*
-      Handle event drop (Also include dragged event)
-      ? Docs: https://fullcalendar.io/docs/eventDrop
-      ? We can use `eventDragStop` but it doesn't return updated event so we have to use `eventDrop` which returns updated event
-    */
-    eventDrop({ event: droppedEvent }: any) {
-      handleUpdateEvent(droppedEvent)
-    },
+// --> version 1.0
+// --> Just basic function and simple layout
 
-    /*
-      Handle event resize
-      ? Docs: https://fullcalendar.io/docs/eventResize
-    */
-    eventResize({ event: resizedEvent }: any) {
-      handleUpdateEvent(resizedEvent)
-    },
 
-    ref: calendarRef,
+// next step
+// ---------------------------------------------
+// 1. change fake data to real data 等後端
+// 2. change filename and url path 因為用他們的檔案改，所以名還沒改，先有功能
 
-    direction: theme.direction
-  }
 
-  // @ts-ignore
-  return <FullCalendar {...calendarOptions} />
-}
-
-export default Calendar
+// advance function （不做不影響功能）
+// -----------------------------------------------
+// 0. optimize code structure 現在就是為了呈現最基本的功能，基本沒有維護性可言
+// 1. table next page 就是資料多的時候不要全部都在一頁顯示
+// 2. filter 可以根據categories分類，因為可能有些人可能不吃牛/豬
+// 3. status 變成 sold out的 toggle
+// 4. add search function 
+// 5. add multiple select function 可以一次刪除多個
+// 6. add sort function， 可以是依據價錢或是name做排序
+// 7. optimize layout and UI 畫面還可以再美化（如有餘力）
