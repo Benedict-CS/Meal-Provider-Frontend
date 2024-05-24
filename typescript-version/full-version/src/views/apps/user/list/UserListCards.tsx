@@ -10,40 +10,40 @@ import HorizontalWithSubtitle from '@components/card-statistics/HorizontalWithSu
 // Vars
 const data: UserDataType[] = [
   {
-    title: 'Session',
+    title: 'Pending Payment',
     value: '21,459',
     avatarIcon: 'tabler-users',
     avatarColor: 'primary',
     change: 'positive',
     changeNumber: '29%',
-    subTitle: 'Total User'
+    // subTitle: 'Total User'
   },
   {
-    title: 'Paid Users',
+    title: 'Completed',
     value: '4,567',
     avatarIcon: 'tabler-user-plus',
     avatarColor: 'error',
     change: 'positive',
     changeNumber: '18%',
-    subTitle: 'Last week analytics'
+    // subTitle: 'Last week analytics'
   },
   {
-    title: 'Active Users',
+    title: 'Refunded',
     value: '19,860',
     avatarIcon: 'tabler-user-check',
     avatarColor: 'success',
     change: 'negative',
     changeNumber: '14%',
-    subTitle: 'Last week analytics'
+    // subTitle: 'Last week analytics'
   },
   {
-    title: 'Pending Users',
+    title: 'Failed',
     value: '237',
     avatarIcon: 'tabler-user-search',
     avatarColor: 'warning',
     change: 'positive',
     changeNumber: '42%',
-    subTitle: 'Last week analytics'
+    // subTitle: 'Last week analytics'
   }
 ]
 
