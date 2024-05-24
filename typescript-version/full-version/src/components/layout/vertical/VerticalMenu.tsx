@@ -93,17 +93,17 @@ const VerticalMenu = ({ dictionary, scrollMenu }: Props) => {
           <MenuItem icon={<i className='tabler-dots' />} href={`/${locale}/apps/calendar`}>{dictionary['navigation'].wizardExamples}</MenuItem>
 
           {/* Order Management */}
-          <MenuItem icon={<i className='tabler-file' />} href={`/${locale}/pages/wizard-examples/`}>{dictionary['navigation'].checkout}</MenuItem>
+          <MenuItem icon={<i className='tabler-file' />}  href={`/${locale}/apps/user/list`}>{dictionary['navigation'].checkout}</MenuItem>
 
           {/* Credit Management */}
           <MenuItem icon={<i className='tabler-file-description' />} href={`/${locale}/apps/invoice/list`}> {dictionary['navigation'].invoice}  </MenuItem>
 
           {/* Rating Management */}
-          <MenuItem icon={<i className='tabler-checkup-list' />} href={`/${locale}/pages/wizard-examples/123`}>{dictionary['navigation'].createDeal}</MenuItem>
+          <MenuItem icon={<i className='tabler-checkup-list' />} href={`/${locale}/apps/roles`}>{dictionary['navigation'].createDeal}</MenuItem>
 
 
           {/* Role Management */}
-          <MenuSection label={dictionary['navigation'].calendar}>
+          {/* <MenuSection label={dictionary['navigation'].calendar}>
 
             <SubMenu label={dictionary['navigation'].user} icon={<i className='tabler-user' />}>
               <MenuItem href={`/${locale}/apps/user/list`}>{dictionary['navigation'].list}</MenuItem>
@@ -115,7 +115,7 @@ const VerticalMenu = ({ dictionary, scrollMenu }: Props) => {
               <MenuItem href={`/${locale}/apps/permissions`}>{dictionary['navigation'].permissions}</MenuItem>
             </SubMenu>
 
-          </MenuSection>
+          </MenuSection> */}
 
         </MenuSection>
       </Menu>

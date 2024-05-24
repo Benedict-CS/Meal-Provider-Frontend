@@ -279,7 +279,7 @@ const UserListTable = ({ tableData }: { tableData?: UsersType[] }) => {
     },
     initialState: {
       pagination: {
-        pageSize: 10
+        pageSize: 3
       }
     },
     enableRowSelection: true, //enable row selection for all rows
@@ -318,9 +318,9 @@ const UserListTable = ({ tableData }: { tableData?: UsersType[] }) => {
             onChange={e => table.setPageSize(Number(e.target.value))}
             className='is-[70px]'
           >
+            <MenuItem value='3'>3</MenuItem>
             <MenuItem value='10'>10</MenuItem>
-            <MenuItem value='25'>25</MenuItem>
-            <MenuItem value='50'>50</MenuItem>
+            <MenuItem value='20'>20</MenuItem>
           </CustomTextField>
           <div className='flex flex-col sm:flex-row is-full sm:is-auto items-start sm:items-center gap-4'>
             <DebouncedInput
