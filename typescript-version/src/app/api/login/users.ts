@@ -23,14 +23,14 @@ export const users: UserTable[] = [
     id: 2,
     name: 'Benson Ho',
     password: 'hello',
-    email: 'user1@gmail.com',
+    email: 'user@gmail.com',
     image: '/images/avatars/3.png'
   },
   {
     id: 3,
     name: 'Benedict Tiong',
     password: 'hello',
-    email: 'user2@gmail.com',
+    email: 'tester@gmail.com',
     image: '/images/avatars/5.png'
   }
 ]
