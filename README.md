@@ -21,8 +21,8 @@ npm run dev
 - [x] Rating System Management (2024/05/24)
 
 ### User Pages
-- [ ] Menu Page
-- [ ] Order Page
+- [x] Menu Page (2024/05/25)
+- [x] Order Cart Page (2024/05/25)
 - [ ] order Record Page
 - [ ] Credit Record Page
 - [ ] Rating Page
@@ -34,6 +34,12 @@ npm run dev
  - user 
     - Email: user@gmail.com
     - Pass: hello
+
+### 開發記錄
+- 2024/05/25
+   - 搞了整天的 route 還是沒看懂，因為 next.js 的 route 和 auth 都做在 SSR，下一次有空再用 route， 我先做其他 page
+   - next.js 有些東西寫在 CSR 一些在 SSR，不是很好理解
+   - 前後端分離的設計不是很適合
 
 ## Getting started
 
