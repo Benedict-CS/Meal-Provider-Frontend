@@ -14,12 +14,18 @@ npm run dev
 - [x] Login Page (2024/05/23)
 - [x] Home Page (2024/05/23)
 
+
+
+
 ### Admin Pages （Finished basic pages view）
 - [x] Menu Management (2024/05/24)
 - [x] Order Record Management (2024/05/24)
 - [x] Credit Management (2024/05/24)
 - [x] Rating System Management (2024/05/24)
 
+- admin account
+    - Email: admin@gmail.com
+    - Pass: hello
 
 ### User Pages
 - [ ] Menu Page
@@ -27,6 +33,10 @@ npm run dev
 - [ ] order Record Page
 - [ ] Credit Record Page
 - [ ] Rating Page
+
+- user account
+    - Email: user@gmail.com
+    - Pass: hello
 
 
 ## Getting started
