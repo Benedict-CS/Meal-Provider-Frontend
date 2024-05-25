@@ -167,14 +167,9 @@ const ProductManagement = () => {
 export default ProductManagement;
 
 
-// --> version 1.0
-// --> Just basic function and simple layout
-
-
 // next step
 // ---------------------------------------------
 // 1. change fake data to real data 等後端
-// 2. change filename and url path 因為用他們的檔案改，所以名還沒改，先有功能
 
 
 // advance function （不做不影響功能）
