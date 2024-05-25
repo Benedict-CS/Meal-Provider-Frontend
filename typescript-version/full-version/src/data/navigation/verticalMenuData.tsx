@@ -55,7 +55,7 @@ const verticalMenuData = (
           {
             label: dictionary['navigation'].list,
             icon: 'tabler-circle',
-            href: '/apps/invoice/list'
+            href: '/apps/credit-management/list'
           },
           {
             label: dictionary['navigation'].preview,

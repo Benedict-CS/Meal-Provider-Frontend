@@ -2,7 +2,7 @@
 import Grid from '@mui/material/Grid'
 
 // Component Imports
-import InvoiceList from '@views/apps/invoice/list'
+import InvoiceList from '@views/apps/credit-management/list'
 
 const getData = async () => {
   // Vars

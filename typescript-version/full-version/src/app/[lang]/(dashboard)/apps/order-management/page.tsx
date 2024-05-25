@@ -1,5 +1,5 @@
 // Component Imports
-import Roles from '@views/apps/roles'
+import UserList from '@views/apps/order-management/list'
 
 const getData = async () => {
   // Vars
@@ -12,11 +12,11 @@ const getData = async () => {
   return res.json()
 }
 
-const RolesApp = async () => {
+const UserListApp = async () => {
   // Vars
   const data = await getData()
 
-  return <Roles userData={data} />
+  return <UserList userData={data} />
 }
 
-export default RolesApp
+export default UserListApp

@@ -57,7 +57,7 @@ const defaultSuggestions: DefaultSuggestionsType[] = [
       },
       {
         label: 'Invoice List',
-        href: '/apps/invoice/list',
+        href: '/apps/credit-management/list',
         icon: 'tabler-file-info'
       },
       {

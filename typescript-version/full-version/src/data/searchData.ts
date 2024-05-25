@@ -37,7 +37,7 @@ const data: SearchData[] = [
   {
     id: '5',
     name: 'Invoice List',
-    url: '/apps/invoice/list',
+    url: '/apps/credit-management/list',
     icon: 'tabler-file-description',
     section: 'Apps'
   },

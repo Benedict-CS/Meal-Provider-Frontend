@@ -20,9 +20,9 @@ import type {
 import calendarReducer from '@reducers/calendarReducer'
 
 // View Imports
-import Calendar from '@views/apps/calendar/Calendar'
-import SidebarLeft from '@views/apps/calendar/SidebarLeft'
-import AddEventSidebar from '@views/apps/calendar/AddEventSidebar'
+import Calendar from '@views/apps/menu-management/Menu'
+import SidebarLeft from '@views/apps/menu-management/SidebarLeft'
+import AddEventSidebar from '@views/apps/menu-management/AddEventSidebar'
 
 // CalendarColors Object
 const calendarsColor: CalendarColors = {
