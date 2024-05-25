@@ -2,7 +2,8 @@
 
 ## How to use
 ```
-cd .\typescript-version\full-version\
+git clone https://gitlab.winfra.cs.nycu.edu.tw/112-cn/meal-provider-front-end.git
+cd meal-provider-front-end/typescript-version
 cp .env.example .env
 npm install
 npm run dev
