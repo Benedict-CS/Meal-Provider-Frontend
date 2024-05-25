@@ -135,17 +135,7 @@ const AppCalendar = ({ events }: { events: EventType[] }) => {
 
         // ...(mdAbove ? { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 } : {})
       >
-        <Calendar
-          mdAbove={mdAbove}
-          calendars={calendars}
-          calendarApi={calendarApi}
-          setCalendarApi={setCalendarApi}
-          calendarsColor={calendarsColor}
-          handleUpdateEvent={handleUpdateEvent}
-          handleSelectEvent={handleSelectEvent}
-          handleLeftSidebarToggle={handleLeftSidebarToggle}
-          handleAddEventSidebarToggle={handleAddEventSidebarToggle}
-        />
+        <Calendar/>
       </div>
       <AddEventSidebar
         calendars={calendars}

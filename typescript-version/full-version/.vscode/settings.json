@@ -9,7 +9,6 @@
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   // VSCode Editor
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
