@@ -33,8 +33,8 @@ Page Function
 ---
 
 ### Share Pages Function
-- [ ] Login Page 
-- [ ] Home Page
+- [x] Login Page (2024/05/26)
+- [x] Home Page (2024/05/26)
 
 ### Admin Pages Function
 - [ ] Menu Management
@@ -67,3 +67,5 @@ Other
    - 前後端分離的設計不是很適合
 - 2024/05/26
    - Template 的很多 button 都沒有功能，所以有用到的要自己去實作，template 就只是提供 UI
+   - 現在是用 client side route，而且看起來很蠢，會先跳到 management page 再 redirect 到 client 的 page
+   - sever side route 是在 middleware 實作，但 token 好像沒有我可以判斷的值，有空再研究 sever side route
