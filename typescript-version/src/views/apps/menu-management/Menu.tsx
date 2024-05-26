@@ -1,12 +1,19 @@
-import React, { ChangeEvent, useState } from 'react';
+'use client';
+import React, { useEffect,ChangeEvent, useState } from 'react';
 import { Card, CardHeader, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from '@mui/material';
 import { initialProducts, Product } from './productsData';
+import { useRouter } from 'next/navigation';
 
 interface ProductFormProps {
   open: boolean;
   handleClose: () => void;
   handleSubmit: (formData: Product) => void;
   product: Product | null;
+}
+interface User {
+  name: string;
+  email: string;
+  image: string;
 }
 
 const ProductForm = ({ open, handleClose, handleSubmit, product }: ProductFormProps) => {
@@ -63,6 +70,27 @@ const ProductManagement = () => {
   const [openImage, setOpenImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const response = await fetch('/api/auth/session');
+      const data = await response.json();
+      if (data.user) {
+        setUser(data.user);
+        if (data.user.email !== "admin@gmail.com") {
+          router.push('/en/apps/menu');
+        }
+      } else {
+        router.push('/login'); // Redirect to login if no user is found
+      }
+    };
+
+    fetchSession();
+  }, [router]);
+
+
 
   const handleOpenForm = (product: Product | null = null) => {
     setSelectedProduct(product);
