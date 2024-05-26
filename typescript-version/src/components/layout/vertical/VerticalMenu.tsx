@@ -54,8 +54,8 @@ const VerticalMenu = ({ }: Props) => {
         <MenuSection label="Apps & Pages">
           <MenuItem icon={<i className='tabler-dots' />} href={`/${locale}/apps/menu`}>Menu</MenuItem>
           <MenuItem icon={<i className='tabler-home' />} href={`/${locale}/apps/order-cart`}>Order Cart</MenuItem>
-          <MenuItem icon={<i className='tabler-file' />} href={`/${locale}/apps/order-Record`}>Order Record</MenuItem>
-          <MenuItem icon={<i className='tabler-list' />} href={`/${locale}/apps/credit-management/list`}>Credit Record</MenuItem>
+          <MenuItem icon={<i className='tabler-file' />} href={`/${locale}/apps/order-record`}>Order Record</MenuItem>
+          <MenuItem icon={<i className='tabler-list' />} href={`/${locale}/apps/credit-management`}>Credit Record</MenuItem>
           <MenuItem icon={<i className='tabler-star' />} href={`/${locale}/apps/review-management`}>Rating</MenuItem>
         </MenuSection>
       )}

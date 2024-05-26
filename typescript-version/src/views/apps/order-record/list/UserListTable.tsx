@@ -63,7 +63,7 @@ const OrderListTable: React.FC<UserListTableProps> = ({ tableData }) => {
               <TableRow>
                 <TableCell>Order</TableCell>
                 <TableCell>Date</TableCell>
-                <TableCell>Customer</TableCell>
+                {/* <TableCell>Customer</TableCell> */}
                 <TableCell>Payment</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Method</TableCell>
@@ -78,14 +78,14 @@ const OrderListTable: React.FC<UserListTableProps> = ({ tableData }) => {
                 >
                   <TableCell component="th" scope="row">{row.order}</TableCell>
                   <TableCell>{row.date}</TableCell>
-                  <TableCell>{row.customer}</TableCell>
+                  {/* <TableCell>{row.customer}</TableCell> */}
                   <TableCell>{row.payment}</TableCell>
                   <TableCell>{row.status}</TableCell>
                   <TableCell>{row.method}</TableCell>
                   <TableCell>
-                    <IconButton aria-label="edit">
+                    {/* <IconButton aria-label="edit">
                     <i className="tabler-edit">Edit</i>
-                    </IconButton>
+                    </IconButton> */}
                     <IconButton aria-label="delete">
                     <i className="tabler-trash">Delete</i>
                     </IconButton>
