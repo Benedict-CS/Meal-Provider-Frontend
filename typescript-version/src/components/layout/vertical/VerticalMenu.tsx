@@ -48,7 +48,7 @@ const VerticalMenu = ({ }: Props) => {
           <MenuItem icon={<i className='tabler-dots' />} href={`/${locale}/apps/menu-management`}>Menu Management</MenuItem>
           <MenuItem icon={<i className='tabler-file' />} href={`/${locale}/apps/order-management`}>Order Management</MenuItem>
           <MenuItem icon={<i className='tabler-list' />} href={`/${locale}/apps/credit-management/list`}>Credit Management</MenuItem>
-          <MenuItem icon={<i className='tabler-star' />} href={`/${locale}/apps/review-management`}>Rating Management</MenuItem>
+          <MenuItem icon={<i className='tabler-star' />} href={`/${locale}/apps/review-management`}>Review Management</MenuItem>
         </MenuSection>
       ) : (
         <MenuSection label="Apps & Pages">
@@ -56,7 +56,7 @@ const VerticalMenu = ({ }: Props) => {
           <MenuItem icon={<i className='tabler-home' />} href={`/${locale}/apps/order-cart`}>Order Cart</MenuItem>
           <MenuItem icon={<i className='tabler-file' />} href={`/${locale}/apps/order-record`}>Order Record</MenuItem>
           <MenuItem icon={<i className='tabler-list' />} href={`/${locale}/apps/credit-record/list`}>Credit Record</MenuItem>
-          <MenuItem icon={<i className='tabler-star' />} href={`/${locale}/apps/review-management`}>Rating</MenuItem>
+          <MenuItem icon={<i className='tabler-star' />} href={`/${locale}/apps/review-record`}>Review Record</MenuItem>
         </MenuSection>
       )}
     </Menu>
