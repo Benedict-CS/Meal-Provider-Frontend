@@ -76,7 +76,10 @@ const UserDropdown = () => {
     try {
       // Sign out from the app
       await signOut({ redirect: false })
-
+      localStorage.clear()
+      // 強制刷新頁面到登入頁，確保會話完全結束
+      window.location.href = '/login'
+      
       // Redirect to login page
       router.push(getLocalizedUrl('/login', locale as Locale))
     } catch (error) {

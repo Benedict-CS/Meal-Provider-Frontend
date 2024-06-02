@@ -77,14 +77,14 @@ const ProductManagement = () => {
     const fetchSession = async () => {
       const response = await fetch('/api/auth/session');
       const data = await response.json();
-      if (data.user) {
-        setUser(data.user);
-        if (data.user.email !== "admin@gmail.com") {
-          router.push('/en/apps/menu');
-        }
-      } else {
-        router.push('/login'); // Redirect to login if no user is found
-      }
+      // if (data.user) {
+      //   setUser(data.user);
+      //   if (data.user.email !== "admin@gmail.com") {
+      //     router.push('/en/apps/menu');
+      //   }
+      // } else {
+      //   router.push('/login'); // Redirect to login if no user is found
+      // }
     };
 
     fetchSession();

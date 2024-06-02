@@ -8,7 +8,7 @@ import { i18n } from '@configs/i18n'
 import { getLocalizedUrl, isUrlMissingLocale } from '@/utils/i18n'
 import { ensurePrefix, withoutSuffix } from '@/utils/string'
 
-const HOME_PAGE_URL = '/apps/menu-management'
+var HOME_PAGE_URL = '/en'
 
 const getLocale = (request: NextRequest): string | undefined => {
   
@@ -42,12 +42,18 @@ export default withAuth(
   async function middleware(request: NextRequestWithAuth) {
     const locale = getLocale(request)
     const pathname = request.nextUrl.pathname
-    const token = request.nextauth.token
+    const token = request.nextauth.token?.email
     const isUserLoggedIn = !!token
     const guestRoutes = ['login', 'register', 'forgot-password']
     const sharedRoutes = ['shared-route']
     const privateRoute = ![...guestRoutes, ...sharedRoutes].some(route => pathname.endsWith(route))
     
+if(token=="admin@gmail.com"){
+  HOME_PAGE_URL="/en/apps/menu-management"
+}else{
+  HOME_PAGE_URL="/en/apps/menu"
+}
+
     if (!isUserLoggedIn && privateRoute) {
       let redirectUrl = '/login'
 
