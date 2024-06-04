@@ -2,10 +2,11 @@ stages:
   - deploy
 
 variables:
-  DOCKER_HOST: "tcp://docker:2375" # Set Docker host to communicate with the DinD service
+  DOCKER_TLS_CERTDIR: "" # Disable TLS for Docker-in-Docker
 
 services:
-  - docker: 19.03.12-dind
+  - name: docker:19.03.12-dind
+    alias: docker
 
 docker_push:
   stage: deploy
