@@ -38,9 +38,9 @@ docker_push:
     TAG: $CI_COMMIT_SHA
     FULL_IMAGE_PATH: ${CTR_REGISTRY_HOST}/${PROJECT_ID}/${REPOSITORY}/${IMAGE_NAME}:${TAG}
   before_script:
-    - apk add --no-cache curl bash
-    - apk add --no-cache python3
-    - curl -sSL https://sdk.cloud.google.com | bash
+    # - apk add --no-cache curl bash
+    # - apk add --no-cache python3
+    # - curl -sSL https://sdk.cloud.google.com | bash
     # # Decode and save the service account key file
     # - echo $GCLOUD_SERVICE_KEY | base64 --decode -i > ${CI_PROJECT_DIR}/gcloud-service-key.json
     # # Authenticate with Google Cloud
@@ -48,7 +48,8 @@ docker_push:
     # - gcloud --quiet config set project $PROJECT_ID
     # # Configure Docker to use Google Artifact Registry
     # - gcloud auth configure-docker ${CTR_REGISTRY_HOST}
-    - gcloud --version
+    # - gcloud --version
+    - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin ${CTR_REGISTRY_HOST}
   script:
     - docker --version
     - docker pull alpine:latest
