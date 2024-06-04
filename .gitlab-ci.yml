@@ -11,10 +11,7 @@ docker_push:
   image: docker:19.03.12
   variables:
     DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: "/certs"
     DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_VERIFY: 1
-    DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
     IMAGE_NAME: meal-provider-frontend
     TAG: $CI_COMMIT_SHA
     FULL_IMAGE_PATH: ${CTR_REGISTRY_HOST}/${PROJECT_ID}/${REPOSITORY}/${IMAGE_NAME}:${TAG}
