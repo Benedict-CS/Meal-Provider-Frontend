@@ -5,30 +5,42 @@ default:
 
 variables:
   DOCKER_TLS_CERTDIR: "/certs"
+
+  # custom shared variables
   IMAGE_NAME: meal-provider-frontend
-  TAG: $CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+  TAG: $CI_COMMIT_SHA
   FULL_IMAGE_PATH: ${CTR_REGISTRY_HOST}/${PROJECT_ID}/${CTR_REPOSITORY}/${IMAGE_NAME}:${TAG}
 
 stages:
-  - build
-  - deploy
+  - docker_push
+  - kubernetes_deploy
 
-build:
-  stage: build
+docker_push:
+  stage: docker_push
+  tags:
+    - docker
+    - cn
+  # services:
+  #   - docker:24.0.5-dind
+  # image: docker:24.0.5
+  before_script:
+    - echo $GCLOUD_SERVICE_KEY | base64 -d -i | docker login -u _json_key --password-stdin ${CTR_REGISTRY_HOST}
   script:
     - docker info
     - echo $GCLOUD_SERVICE_KEY | base64 -d -i | docker login -u _json_key --password-stdin ${CTR_REGISTRY_HOST}
     - docker build -t ${FULL_IMAGE_PATH} .
     - docker push ${FULL_IMAGE_PATH}
-  only:
-    - master
-    - develop
 
-deploy:
-  stage: deploy
+kubernetes_deploy:
+  stage: kubernetes_deploy
+  needs: ["docker_push"]
+  tags:
+    - docker
+    - cn
+  image:
+    name: bitnami/kubectl:latest
+    entrypoint: [""]
   script:
-    - echo $GCLOUD_SERVICE_KEY | base64 -d -i | docker login -u _json_key --password-stdin ${CTR_REGISTRY_HOST}
-    - docker pull ${FULL_IMAGE_PATH}
-    - docker run -d ${FULL_IMAGE_PATH}
-  only:
-    - master
+    - echo "kubernets deploy..."
+    - kubectl version --client
+    - kubectl get service --kubeconfig $KUBECONFIG_KARMADA_API_SERVER
