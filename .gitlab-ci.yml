@@ -4,10 +4,6 @@ stages:
 variables:
   DOCKER_TLS_CERTDIR: "" # Disable TLS for Docker-in-Docker
 
-services:
-  - name: docker:19.03.12-dind
-    alias: docker
-
 docker_push:
   stage: deploy
   tags:
@@ -18,6 +14,8 @@ docker_push:
     IMAGE_NAME: meal-provider-frontend
     TAG: $CI_COMMIT_SHA
     FULL_IMAGE_PATH: ${CTR_REGISTRY_HOST}/${PROJECT_ID}/${REPOSITORY}/${IMAGE_NAME}:${TAG}
+  services:
+    - docker:dind
   before_script:
     # Decode and save the service account key file
     - echo $GCLOUD_SERVICE_KEY | base64 --decode -i > ${CI_PROJECT_DIR}/gcloud-service-key.json
