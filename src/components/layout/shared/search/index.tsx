@@ -99,10 +99,11 @@ const NavSearch = () => {
         })}
       >
         <div className='flex items-center gap-2'>
-          <IconButton className='text-textPrimary'>
+          Meal Provider
+          {/* <IconButton className='text-textPrimary'>
             <i className='tabler-search' />
           </IconButton>
-          <div className='whitespace-nowrap text-textDisabled'>Search ⌘K</div>
+          <div className='whitespace-nowrap text-textDisabled'>Search ⌘K</div> */}
         </div>
       </ComponentWithUseKBar>
       <KBarPortal>

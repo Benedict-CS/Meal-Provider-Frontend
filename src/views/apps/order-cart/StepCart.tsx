@@ -23,6 +23,14 @@ import Fade from '@mui/material/Fade'
 import DirectionalIcon from '@components/DirectionalIcon'
 import CustomTextField from '@core/components/mui/TextField'
 
+import { Product } from './productsData';
+
+interface StepCartProps {
+  handleNext: () => void;
+  cartItems: Map<Product, number>;
+  updateCartItems: (newCartItems: Map<Product, number>) => void;
+}
+
 // Vars
 const products = [
   {
@@ -49,10 +57,11 @@ const products = [
   }
 ]
 
-const StepCart = ({ handleNext }: { handleNext: () => void }) => {
+const StepCart = (props: StepCartProps) => {
   // States
   const [openCollapse, setOpenCollapse] = useState<boolean>(true)
   const [openFade, setOpenFade] = useState<boolean>(true)
+  const {handleNext, cartItems, updateCartItems} = props;
 
   useEffect(() => {
     if (!openFade) {
@@ -92,34 +101,34 @@ const StepCart = ({ handleNext }: { handleNext: () => void }) => {
             </Alert>
           </Fade>
         </Collapse> */}
-        <Typography variant='h5'>My Order (2 Items)</Typography>
+        <Typography variant='h5'>My Orders</Typography>
         <div className='border rounded'>
-          {products.map((product, index) => (
+          {Array.from(cartItems).map(([product, count], index) => (
             <div
               key={index}
               className='flex flex-col sm:flex-row items-center gap-4 p-6 relative [&:not(:last-child)]:border-be'
             >
-              <img height={140} width={140} src={product.imgSrc} alt={product.imgAlt} />
+              <img height={140} width={140} src={product.image} alt={product.image} />
               {/* <IconButton size='small' className='absolute block-start-4 inline-end-4'>
                 <i className='tabler-x text-lg' />
               </IconButton> */}
               <div className='flex flex-col sm:flex-row items-center sm:justify-between is-full'>
                 <div className='flex flex-col items-center gap-2 sm:items-start'>
                   <Typography color='text.primary' className='font-medium'>
-                    {product.productName}
+                    {product.name}
                   </Typography>
                   <div className='flex items-center gap-4'>
                     <div className='flex items-center gap-0.5'>
                       <Typography color='text.disabled'>Sold By:</Typography>
                       <Typography href='/' component={Link} onClick={e => e.preventDefault()} color='primary'>
-                        {product.soldBy}
+                        {product.vendor}
                       </Typography>
                     </div>
-                    {product.inStock ? (
+                    {/* {product.inStock ? (
                       <Chip variant='tonal' size='small' color='success' label='In Stock' />
                     ) : (
                       <Chip variant='tonal' size='small' color='error' label='Out of Stock' />
-                    )}
+                    )} */}
                   </div>
                   {/* <Rating
                     name='google-nest-rating'
@@ -130,14 +139,13 @@ const StepCart = ({ handleNext }: { handleNext: () => void }) => {
                   <CustomTextField
                     size='small'
                     type='number'
-                    defaultValue={product.count}
+                    defaultValue={count}
                     className='block max-is-[152px]'
                   />
                 </div>
                 <div className='flex flex-col justify-between items-center gap-4 sm:items-end'>
                   <div className='flex'>
-                    <Typography color='primary'>{`NT${product.price}/`}</Typography>
-                    <Typography className='line-through'>{`NT${product.originalPrice}`}</Typography>
+                    <Typography>{count * product.price}</Typography>
                   </div>
                   {/* <Button variant='tonal' size='small'>
                     Move to wishlist
@@ -148,9 +156,8 @@ const StepCart = ({ handleNext }: { handleNext: () => void }) => {
           ))}
         </div>
         <Typography
-          href='/'
+          href='/apps/menu'
           component={Link}
-          onClick={e => e.preventDefault()}
           className='flex items-center justify-between gap-4 plb-2 pli-5 border border-primary rounded'
           color='primary'
         >
