@@ -4,13 +4,13 @@ metadata:
   name: http-frontend
 spec:
   parentRefs:
-  - name: cilium-gateway-frontend
-    namespace: default
+    - name: cilium-gateway-frontend
+      namespace: default
   rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-    backendRefs:
-    - name: frontend-service
-      port: 80
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: frontend-service
+          port: 80

@@ -4,13 +4,13 @@ metadata:
   name: http-backend
 spec:
   parentRefs:
-  - name: cilium-gateway-backend
-    namespace: default
+    - name: cilium-gateway-backend
+      namespace: default
   rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-    backendRefs:
-    - name: backend-service
-      port: 80
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: backend-service
+          port: 80

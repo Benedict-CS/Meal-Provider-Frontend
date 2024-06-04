@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: whoami-deployment
+  name: frontend-deployment
 spec:
   replicas: 11
   selector:
     matchLabels:
-      app: whoami
+      app: frontend
   template:
     metadata:
       labels:
-        app: whoami
+        app: frontend
     spec:
       containers:
-        - name: whoami
-          image: containous/whoami
+        - name: frontend
+          image: ${FULL_IMAGE_PATH}
           ports:
             - containerPort: 80
