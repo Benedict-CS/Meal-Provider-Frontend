@@ -49,7 +49,9 @@ kubernetes_deploy:
   tags:
     - docker
     - cn
-  image: bitnami/kubectl:latest
+  image:
+    name: bitnami/kubectl:latest
+    entrypoint: ['']
   # before_script:
   #   - mkdir -p ~/.kube
   #   - echo $KUBECONFIG_KARMADA_API_SERVER > ~/.kube/config
