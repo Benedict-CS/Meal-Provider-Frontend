@@ -30,9 +30,10 @@ docker_push:
   tags:
     - docker
     - cn
-  # services:
-  #   - docker:24.0.5-dind
-  image: google/cloud-sdk:latest
+  services:
+    - docker:24.0.5-dind
+    - google/cloud-sdk:latest
+  # image: google/cloud-sdk:latest
   variables:
     IMAGE_NAME: meal-provider-frontend
     TAG: $CI_COMMIT_SHA
