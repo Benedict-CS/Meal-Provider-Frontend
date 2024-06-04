@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect,ChangeEvent, useState } from 'react';
+import React, { useEffect, ChangeEvent, useState } from 'react';
 import { Card, CardHeader, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from '@mui/material';
 import { initialProducts, Product } from './productsData';
 import { useRouter } from 'next/navigation';
@@ -27,7 +27,7 @@ const ProductForm = ({ open, handleClose, handleSubmit, product }: ProductFormPr
     category: '',
     image: '',
     status: 'Sold Out',
-    quantity:''
+    quantity: ''
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -150,7 +150,7 @@ const ProductManagement = () => {
           {products.map(product => (
             <TableRow key={product.id}>
               <TableCell onClick={() => handleOpenImage(product.image)}>
-                <img src={product.image} alt={product.name} style={{ width: "50px", height : "50px", cursor: 'pointer', borderRadius: '50%' }} />
+                <img src={product.image} alt={product.name} style={{ width: "50px", height: "50px", cursor: 'pointer', borderRadius: '50%' }} />
               </TableCell>
               <TableCell>{product.name}</TableCell>
               <TableCell>{product.price}</TableCell>

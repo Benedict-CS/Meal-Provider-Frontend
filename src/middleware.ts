@@ -11,7 +11,7 @@ import { ensurePrefix, withoutSuffix } from '@/utils/string'
 var HOME_PAGE_URL = '/en'
 
 const getLocale = (request: NextRequest): string | undefined => {
-  
+
   const urlLocale = i18n.locales.find(locale => request.nextUrl.pathname.startsWith(`/${locale}`))
   if (urlLocale) return urlLocale
   const negotiatorHeaders: Record<string, string> = {}
@@ -47,12 +47,12 @@ export default withAuth(
     const guestRoutes = ['login', 'register', 'forgot-password']
     const sharedRoutes = ['shared-route']
     const privateRoute = ![...guestRoutes, ...sharedRoutes].some(route => pathname.endsWith(route))
-    
-if(token=="admin@gmail.com"){
-  HOME_PAGE_URL="/en/apps/menu-management"
-}else{
-  HOME_PAGE_URL="/en/apps/menu"
-}
+
+    if (token == "admin@gmail.com") {
+      HOME_PAGE_URL = "/en/apps/menu-management"
+    } else {
+      HOME_PAGE_URL = "/en/apps/order-cart"
+    }
 
     if (!isUserLoggedIn && privateRoute) {
       let redirectUrl = '/login'
@@ -65,15 +65,15 @@ if(token=="admin@gmail.com"){
 
       return localizedRedirect(redirectUrl, locale, request)
     }
-    
+
     const isRequestedRouteIsGuestRoute = guestRoutes.some(route => pathname.endsWith(route))
 
     if (isUserLoggedIn && isRequestedRouteIsGuestRoute)
       return localizedRedirect(HOME_PAGE_URL, locale, request)
-    
+
     if (pathname === '/' || pathname === `/${locale}`)
       return localizedRedirect(HOME_PAGE_URL, locale, request)
-   
+
     return isUrlMissingLocale(pathname) ? localizedRedirect(pathname, locale, request) : NextResponse.next()
   },
   {
