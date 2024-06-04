@@ -14,9 +14,11 @@ docker_push:
     IMAGE_NAME: meal-provider-frontend
     TAG: $CI_COMMIT_SHA
     FULL_IMAGE_PATH: ${CTR_REGISTRY_HOST}/${PROJECT_ID}/${REPOSITORY}/${IMAGE_NAME}:${TAG}
+    DOCKER_DRIVER: overlay2
   services:
     - docker:dind
   before_script:
+    - docker info
     # Decode and save the service account key file
     - echo $GCLOUD_SERVICE_KEY | base64 --decode -i > ${CI_PROJECT_DIR}/gcloud-service-key.json
     # Authenticate with Google Cloud
