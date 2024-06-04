@@ -32,7 +32,7 @@ docker_push:
 
 kubernetes_deploy:
   stage: deploy
-  needs: ["docker_push"]
+  # needs: ["docker_push"]
   tags:
     - docker
     - cn
