@@ -1,49 +1,25 @@
 stages:
   - build
 
-access-service:
-  stage: build
-  image: docker:20.10.16
-  services:
-    - docker:dind # necessary for docker run
-    - tutum/wordpress:latest
+docker_push:
+  stage: deploy
+  tags:
+    - docker
+    - cn
   variables:
-    # these values may need to be different if using TLS, k8s, etc.
-    # You can alternatively set defaults in your runner config
-    DOCKER_TLS_CERTDIR: ""
-    DOCKER_HOST: "tcp://docker:2375"
-    FF_NETWORK_PER_BUILD: "true" # activate container-to-container networking
-  script: |
-    docker run --rm --name curl \
-      --volume  "$(pwd)":"$(pwd)"    \
-      --workdir "$(pwd)"             \
-      --network=host                 \
-      curlimages/curl:7.74.0 curl "http://tutum-wordpress"
-
-# docker_push:
-#   stage: deploy
-#   tags:
-#     - docker
-#     - cn
-#   image: docker:latest
-#   variables:
-#     IMAGE_NAME: meal-provider-frontend
-#     TAG: $CI_COMMIT_SHA
-#     FULL_IMAGE_PATH: ${CTR_REGISTRY_HOST}/${PROJECT_ID}/${REPOSITORY}/${IMAGE_NAME}:${TAG}
-#     DOCKER_DRIVER: overlay2
-#   services:
-#     - google/cloud-sdk:latest
-#   before_script:
-#     - docker info
-#     - gcloud version
-#     # Decode and save the service account key file
-#     - echo $GCLOUD_SERVICE_KEY | base64 --decode -i > ${CI_PROJECT_DIR}/gcloud-service-key.json
-#     # Authenticate with Google Cloud
-#     - gcloud auth activate-service-account --key-file=${CI_PROJECT_DIR}/gcloud-service-key.json
-#     - gcloud --quiet config set project $PROJECT_ID
-#     # Configure Docker to use Google Artifact Registry
-#     - gcloud auth configure-docker ${CTR_REGISTRY_HOST}
-#   script:
-#     - docker pull alpine:latest
-#     - docker tag alpine:latest ${FULL_IMAGE_PATH}
-#     - docker push ${FULL_IMAGE_PATH}
+    IMAGE_NAME: meal-provider-frontend
+    TAG: $CI_COMMIT_SHA
+    FULL_IMAGE_PATH: ${CTR_REGISTRY_HOST}/${PROJECT_ID}/${REPOSITORY}/${IMAGE_NAME}:${TAG}
+  before_script:
+    - curl -sSL https://sdk.cloud.google.com | bash
+    # Decode and save the service account key file
+    - echo $GCLOUD_SERVICE_KEY | base64 --decode -i > ${CI_PROJECT_DIR}/gcloud-service-key.json
+    # Authenticate with Google Cloud
+    - gcloud auth activate-service-account --key-file=${CI_PROJECT_DIR}/gcloud-service-key.json
+    - gcloud --quiet config set project $PROJECT_ID
+    # Configure Docker to use Google Artifact Registry
+    - gcloud auth configure-docker ${CTR_REGISTRY_HOST}
+  script:
+    - docker pull alpine:latest
+    - docker tag alpine:latest ${FULL_IMAGE_PATH}
+    - docker push ${FULL_IMAGE_PATH}
