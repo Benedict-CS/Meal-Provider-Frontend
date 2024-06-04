@@ -2,45 +2,33 @@ default:
   image: docker:24.0.5
   services:
     - docker:24.0.5-dind
-  before_script:
-    - docker info
 
 variables:
-  # When you use the dind service, you must instruct Docker to talk with
-  # the daemon started inside of the service. The daemon is available
-  # with a network connection instead of the default
-  # /var/run/docker.sock socket. Docker 19.03 does this automatically
-  # by setting the DOCKER_HOST in
-  # https://github.com/docker-library/docker/blob/d45051476babc297257df490d22cbd806f1b11e4/19.03/docker-entrypoint.sh#L23-L29
-  #
-  # The 'docker' hostname is the alias of the service container as described at
-  # https://docs.gitlab.com/ee/ci/services/#accessing-the-services.
-  #
-  # Specify to Docker where to create the certificates. Docker
-  # creates them automatically on boot, and creates
-  # `/certs/client` to share between the service and job
-  # container, thanks to volume mount from config.toml
   DOCKER_TLS_CERTDIR: "/certs"
+  IMAGE_NAME: meal-provider-frontend
+  TAG: $CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+  FULL_IMAGE_PATH: ${CTR_REGISTRY_HOST}/${PROJECT_ID}/${CTR_REPOSITORY}/${IMAGE_NAME}:${TAG}
 
 stages:
+  - build
   - deploy
 
-docker_push:
-  stage: deploy
-  tags:
-    - docker
-    - cn
-  # services:
-  #   - docker:24.0.5-dind
-  # image: docker:24.0.5
-  variables:
-    IMAGE_NAME: meal-provider-frontend
-    TAG: $CI_COMMIT_SHA
-    FULL_IMAGE_PATH: ${CTR_REGISTRY_HOST}/${PROJECT_ID}/${CTR_REPOSITORY}/${IMAGE_NAME}:${TAG}
-  before_script:
-    - echo $GCLOUD_SERVICE_KEY | base64 -d -i | docker login -u _json_key --password-stdin ${CTR_REGISTRY_HOST}
+build:
+  stage: build
   script:
-    - docker --version
-    - docker pull alpine:latest
-    - docker tag alpine:latest ${FULL_IMAGE_PATH}
+    - docker info
+    - echo $GCLOUD_SERVICE_KEY | base64 -d -i | docker login -u _json_key --password-stdin ${CTR_REGISTRY_HOST}
+    - docker build -t ${FULL_IMAGE_PATH} .
     - docker push ${FULL_IMAGE_PATH}
+  only:
+    - master
+    - develop
+
+deploy:
+  stage: deploy
+  script:
+    - echo $GCLOUD_SERVICE_KEY | base64 -d -i | docker login -u _json_key --password-stdin ${CTR_REGISTRY_HOST}
+    - docker pull ${FULL_IMAGE_PATH}
+    - docker run -d ${FULL_IMAGE_PATH}
+  only:
+    - master
