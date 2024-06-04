@@ -38,7 +38,7 @@ kubernetes_deploy:
     - cn
   image:
     name: bitnami/kubectl:latest
-    entrypoint: ['']
+    entrypoint: [""]
   script:
     - kubectl version --client
     - kubectl get service --kubeconfig $KUBECONFIG_KARMADA_API_SERVER

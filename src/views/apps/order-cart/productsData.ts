@@ -71,42 +71,6 @@ export const initialProducts: Product[] = [
     image: '/images/food/5.png',
     status: '',
     quantity: '0'
-  },
-  {
-    id: '6',
-    name: '蔡澎梅排骨',
-    price: 105,
-    description: 'Hoeger-Powlowski',
-    vendor: 'Accessories',
-    inStock: false,
-    category: '雞',
-    image: '/images/food/6.png',
-    status: '',
-    quantity: '0'
-  },
-  {
-    id: '7',
-    name: '泰式椒麻雞腿排',
-    price: 110,
-    description: 'Hoeger-Powlowski',
-    vendor: 'Accessories',
-    inStock: false,
-    category: '雞',
-    image: '/images/food/7.png',
-    status: '',
-    quantity: '0'
-  },
-  {
-    id: '8',
-    name: '酥炸大雞腿',
-    price: 120,
-    description: 'Hoeger-Powlowski',
-    vendor: 'Accessories',
-    inStock: false,
-    category: '雞',
-    image: '/images/food/8.png',
-    status: '',
-    quantity: '0'
   }
   // More products...
 ];

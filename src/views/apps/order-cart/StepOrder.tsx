@@ -78,7 +78,7 @@ const StepOrder = ({ handleNext, cartItems, updateCartItems }: StepOrderProps) =
         <Grid container spacing={2} justifyContent="flex-start">
           {products.map((product) => (
             <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-              <ProductCard product={product} onAddToCart={handleAddToCart} count={cartItems.get(product)} />
+              <ProductCard product={product} onAddToCart={handleAddToCart} count={cartItems.get(product) || 0} />
             </Grid>
           ))}
         </Grid>

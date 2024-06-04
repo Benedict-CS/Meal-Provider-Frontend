@@ -25,8 +25,6 @@ const StepCart = ({ handleNext, cartItems, updateCartItems }: StepCartProps) => 
         newQuantities.set(product, quantity);
       } else {
         // newQuantities.delete(product);
-        // newQuantities.set(product, 0);
-
       }
       setProductQuantities(newQuantities);
       updateCartItems(newQuantities);
