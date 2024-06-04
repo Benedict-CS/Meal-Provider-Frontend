@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Card, CardActions, CardContent, CardMedia, Typography, Button, Grid, Box } from '@mui/material';
 import { Product, initialProducts } from './productsData';
+import ToCart from '@core/components/to-cart'
 
 interface ProductCardProps {
   product: Product;
@@ -35,9 +36,9 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
       </CardContent>
       <CardActions>
 
-        <Button className='is-full sm:is-auto lg:is-full' variant='contained' onClick={() => onAddToCart(product)} >
+      <Button className='is-full sm:is-auto lg:is-full' variant='contained' onClick={() => onAddToCart(product)} >
         Add to Cart
-          </Button>
+      </Button>
           
       </CardActions>
     </Card>
@@ -54,6 +55,7 @@ const ProductManagement = () => {
   };
 
   return (
+    <>
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2} justifyContent="flex-start"> {/* Aligns items to the left */}
         {products.map((product) => (
@@ -63,6 +65,13 @@ const ProductManagement = () => {
         ))}
       </Grid>
     </Box>
+    
+    <ToCart className='mui-fixed'>
+      <Button variant='contained' className='is-10 bs-10 rounded-full p-0 min-is-0 flex items-center justify-center'>
+        <i className='tabler-shopping-cart' />
+      </Button>
+    </ToCart>
+    </>
   );
 };
 
