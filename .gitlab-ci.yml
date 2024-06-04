@@ -25,10 +25,11 @@ variables:
   FULL_IMAGE_PATH: ${CTR_REGISTRY_HOST}/${PROJECT_ID}/${CTR_REPOSITORY}/${IMAGE_NAME}:${TAG}
 
 stages:
-  - deploy
+  - docker_push
+  - kubernetes_deploy
 
 docker_push:
-  stage: deploy
+  stage: docker_push
   tags:
     - docker
     - cn
@@ -44,7 +45,7 @@ docker_push:
     - docker push ${FULL_IMAGE_PATH}
 
 kubernetes_deploy:
-  stage: deploy
+  stage: kubernetes_deploy
   needs: ["docker_push"]
   tags:
     - docker
@@ -52,9 +53,6 @@ kubernetes_deploy:
   image:
     name: bitnami/kubectl:latest
     entrypoint: ['']
-  # before_script:
-  #   - mkdir -p ~/.kube
-  #   - echo $KUBECONFIG_KARMADA_API_SERVER > ~/.kube/config
   script:
     - echo "kubernets deploy..."
     - kubectl version --client
