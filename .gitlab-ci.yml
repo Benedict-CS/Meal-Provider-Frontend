@@ -15,7 +15,7 @@ stages:
   - deploy
 
 docker_push:
-  stage: docker_push
+  stage: deploy
   tags:
     - docker
     - cn
