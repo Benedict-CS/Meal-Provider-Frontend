@@ -215,7 +215,13 @@ const CheckoutWizard = () => {
           >
             {steps.map((step, index) => {
               return (
-                <Step key={index} onClick={() => setActiveStep(index)}>
+                <Step key={index} onClick={() => {
+                  if (index == 2) { // Confirmation step
+                    return
+                  } else {
+                    setActiveStep(index)
+                  }
+                }}>
                   <StepLabel icon={<></>} className='text-center'>
                     {step.icon}
                     <Typography className='step-title'>{step.title}</Typography>

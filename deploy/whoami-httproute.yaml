@@ -4,13 +4,13 @@ metadata:
   name: http-whoami
 spec:
   parentRefs:
-  - name: cilium-gateway
-    namespace: default
+    - name: cilium-gateway
+      namespace: default
   rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-    backendRefs:
-    - name: whoami-service
-      port: 80
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: whoami-service
+          port: 80

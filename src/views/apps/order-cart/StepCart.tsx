@@ -16,15 +16,14 @@ const StepCart = ({ handleNext, cartItems, updateCartItems }: StepCartProps) => 
   const [productQuantities, setProductQuantities] = useState<Map<Product, number>>(
     new Map(Array.from(cartItems).map(([product, quantity]) => [product, quantity]))
   );
+  const total = Array.from(productQuantities).map(([product, quantity]) => product.price * quantity).reduce((a, b) => a + b, 0);
 
   const handleQuantityChange = (product: Product, newQuantity: string) => {
     const quantity = parseInt(newQuantity);
     if (!isNaN(quantity)) {
       const newQuantities = new Map(productQuantities);
-      if (quantity > 0) {
+      if (quantity >= 0) {
         newQuantities.set(product, quantity);
-      } else {
-        // newQuantities.delete(product);
       }
       setProductQuantities(newQuantities);
       updateCartItems(newQuantities);
@@ -34,7 +33,7 @@ const StepCart = ({ handleNext, cartItems, updateCartItems }: StepCartProps) => 
   return (
     <Grid container spacing={6}>
       <Grid item xs={12} lg={8} className='flex flex-col gap-4'>
-        <Typography variant='h5'>My Orders</Typography>
+        <Typography variant='h5'>Orders</Typography>
         <div className='border rounded'>
           {Array.from(cartItems).map(([product, count], index) => (
             <div key={index} className='flex flex-col sm:flex-row items-center gap-4 p-6 relative'>
@@ -62,54 +61,24 @@ const StepCart = ({ handleNext, cartItems, updateCartItems }: StepCartProps) => 
         </div>
       </Grid>
       <Grid item xs={12} lg={4} className='flex flex-col gap-4'>
-        <Typography variant='h5'>Payment Method</Typography>
+        <Typography variant='h5'>Payment</Typography>
         <div className='border rounded'>
-
-
-          <CardContent className='flex gap-4 flex-col'>
-            <Typography color='text.primary' className='font-medium'>
-              Price Details
-            </Typography>
-            <div className='flex flex-col gap-2'>
-              <div className='flex items-center flex-wrap justify-between'>
-                <Typography color='text.primary'>Order Total</Typography>
-                <Typography color='text.primary'>NT 420.00</Typography>
-              </div>
-
-              <div className='flex items-center flex-wrap justify-between'>
-                <Typography color='text.primary'>Delivery Charges</Typography>
-                <div className='flex items-center gap-2'>
-                  <Typography color='text.disabled' className='line-through'>
-                    NT 5.00
-                  </Typography>
-                  <Chip variant='tonal' size='small' color='success' label='Free' />
-                </div>
-              </div>
-            </div>
-          </CardContent>
           <CardContent>
             <div className='flex items-center flex-wrap justify-between'>
               <Typography color='text.primary' className='font-medium'>
                 Total
               </Typography>
               <Typography color='text.primary' className='font-medium'>
-                NT 420.00
+                NT {total}
               </Typography>
             </div>
           </CardContent>
         </div>
-        <div className='flex justify-normal sm:justify-end xl:justify-normal'>
-          <Button className='is-full sm:is-auto lg:is-full' variant='contained' onClick={handleNext} >
-            Pay
-          </Button>
-
-        </div>
 
         <div className='flex justify-normal sm:justify-end xl:justify-normal'>
           <Button className='is-full sm:is-auto lg:is-full' variant='contained' onClick={handleNext} >
-            賒賬
+            確認訂單
           </Button>
-
         </div>
       </Grid>
     </Grid>

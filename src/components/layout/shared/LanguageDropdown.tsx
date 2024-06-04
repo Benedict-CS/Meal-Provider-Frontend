@@ -74,9 +74,9 @@ const LanguageDropdown = () => {
 
   return (
     <>
-      <IconButton ref={anchorRef} onClick={handleToggle} className='text-textPrimary'>
+      {/* <IconButton ref={anchorRef} onClick={handleToggle} className='text-textPrimary'>
         <i className='tabler-language' />
-      </IconButton>
+      </IconButton> */}
       <Popper
         open={open}
         transition
