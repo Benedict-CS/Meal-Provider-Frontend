@@ -21,6 +21,7 @@ const TextFieldStyled = styled(TextField)<TextFieldProps>(({ theme }) => ({
     '&:not(.Mui-error).MuiFormLabel-colorPrimary.Mui-focused': {
       color: 'var(--mui-palette-primary-main) !important'
     },
+
     '&.Mui-disabled': {
       color: 'var(--mui-palette-text-disabled)'
     },
@@ -249,18 +250,18 @@ const TextFieldStyled = styled(TextField)<TextFieldProps>(({ theme }) => ({
   }
 }))
 
-const CustomTextField = forwardRef((props: TextFieldProps, ref) => {
-  const { size = 'small', InputLabelProps, ...rest } = props
+const CustomTextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
+  const { size = 'small', InputLabelProps, ...rest } = props;
 
   return (
     <TextFieldStyled
       size={size}
       inputRef={ref}
       {...rest}
-      variant='filled'
+      variant="filled"
       InputLabelProps={{ ...InputLabelProps, shrink: true }}
     />
-  )
-})
+  );
+});
 
 export default CustomTextField

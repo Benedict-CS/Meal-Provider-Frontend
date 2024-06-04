@@ -46,28 +46,28 @@ export type NotificationsType = {
   time: string
   read: boolean
 } & (
-  | {
+    | {
       avatarImage?: string
       avatarIcon?: never
       avatarText?: never
       avatarColor?: never
       avatarSkin?: never
     }
-  | {
+    | {
       avatarIcon?: string
       avatarColor?: ThemeColor
       avatarSkin?: CustomAvatarProps['skin']
       avatarImage?: never
       avatarText?: never
     }
-  | {
+    | {
       avatarText?: string
       avatarColor?: ThemeColor
       avatarSkin?: CustomAvatarProps['skin']
       avatarImage?: never
       avatarIcon?: never
     }
-)
+  )
 
 const ScrollWrapper = ({ children, hidden }: { children: ReactNode; hidden: boolean }) => {
   if (hidden) {
@@ -162,11 +162,19 @@ const NotificationDropdown = ({ notifications }: { notifications: NotificationsT
         <Badge
           color='error'
           className='cursor-pointer'
-          variant='dot'
+          variant='standard' // 将 variant 设置为 'standard'
+          badgeContent={4} // 将 badgeContent 设置为要显示的数字
           overlap='circular'
           invisible={notificationCount === 0}
           sx={{
-            '& .MuiBadge-dot': { top: 6, right: 5, boxShadow: 'var(--mui-palette-background-paper) 0px 0px 0px 2px' }
+            '& .MuiBadge-badge': {
+              top: 2,
+              right: 2,
+              boxShadow: 'var(--mui-palette-background-paper) 0px 0px 0px 2px',
+              width: '16px', // 设置宽度
+              height: '16px', // 设置高度
+              fontSize: '10px' // 设置字体大小
+            }
           }}
           anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
@@ -181,16 +189,16 @@ const NotificationDropdown = ({ notifications }: { notifications: NotificationsT
         anchorEl={anchorRef.current}
         {...(isSmallScreen
           ? {
-              className: 'is-full !mbs-3 z-[1]',
-              modifiers: [
-                {
-                  name: 'preventOverflow',
-                  options: {
-                    padding: themeConfig.layoutPadding
-                  }
+            className: 'is-full !mbs-3 z-[1]',
+            modifiers: [
+              {
+                name: 'preventOverflow',
+                options: {
+                  padding: themeConfig.layoutPadding
                 }
-              ]
-            }
+              }
+            ]
+          }
           : { className: 'is-96 !mbs-3 z-[1]' })}
       >
         {({ TransitionProps, placement }) => (
