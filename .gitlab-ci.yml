@@ -1,6 +1,12 @@
 stages:
   - deploy
 
+variables:
+  DOCKER_HOST: "tcp://docker:2375" # Set Docker host to communicate with the DinD service
+
+services:
+  - docker:19.03.12-dind
+
 docker_push:
   stage: deploy
   tags:
