@@ -2,8 +2,8 @@
 import Grid from '@mui/material/Grid'
 
 // Component Imports
-import AddCard from '@views/apps/invoice/add/AddCard'
-import AddActions from '@views/apps/invoice/add/AddActions'
+import AddCard from '@views/apps/credit-record/add/AddCard'
+import AddActions from '@views/apps/credit-record/add/AddActions'
 
 const getData = async () => {
   // Vars

@@ -20,7 +20,7 @@ import Switch from '@mui/material/Switch'
 import type { Locale } from '@configs/i18n'
 
 // Component Imports
-import SendInvoiceDrawer from '@views/apps/invoice/shared/SendInvoiceDrawer'
+import SendInvoiceDrawer from '@views/apps/credit-management/shared/SendInvoiceDrawer'
 import CustomTextField from '@core/components/mui/TextField'
 
 // Util Imports

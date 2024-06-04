@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 import type { InvoiceType } from '@/types/apps/invoiceTypes'
 
 // Component Imports
-import Preview from '@views/apps/invoice/preview'
+import Preview from '@views/apps/credit-management/preview'
 
 const getData = async () => {
   // Vars
