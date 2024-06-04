@@ -3,8 +3,13 @@
 import React, { useState } from 'react';
 import { Card, CardActions, CardContent, CardMedia, Typography, Button, Grid, Box } from '@mui/material';
 import { Product, initialProducts } from './productsData';
-import { useRouter } from 'next/navigation';
 import ToCart from '@core/components/to-cart'
+
+interface StepOrderProps {
+  handleNext: () => void;
+  cartItems: Map<Product, number>;
+  updateCartItems: (newCartItems: Map<Product, number>) => void;
+}
 
 interface ProductCardProps {
   product: Product;
@@ -46,19 +51,15 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   );
 };
 
-const ProductManagement = () => {
+const StepOrder = (props: StepOrderProps) => {
   const [products, setProducts] = useState<Product[]>(initialProducts);
-  const [cartItems, setCartItems] = useState<Map<Product, number>>(new Map());
-  const { push } = useRouter()
+  const {handleNext, cartItems, updateCartItems} = props;
 
   const handleAddToCart = (product: Product) => {
     const count = cartItems.get(product) || 0
-    setCartItems(new Map(cartItems.set(product, count + 1)))
+    updateCartItems(new Map(cartItems.set(product, count + 1)))
+    console.log(cartItems)
   };
-
-  const handleClick = () => {
-    push('/apps/order-cart')
-  }
 
   return (
     <>
@@ -73,7 +74,7 @@ const ProductManagement = () => {
     </Box>
     
     <ToCart className='mui-fixed'>
-      <Button variant='contained' className='is-10 bs-10 rounded-full p-0 min-is-0 flex items-center justify-center' onClick={handleClick}>
+      <Button variant='contained' className='is-10 bs-10 rounded-full p-0 min-is-0 flex items-center justify-center' onClick={handleNext}>
         <i className='tabler-shopping-cart' />
       </Button>
     </ToCart>
@@ -81,4 +82,4 @@ const ProductManagement = () => {
   );
 };
 
-export default ProductManagement;
+export default StepOrder;

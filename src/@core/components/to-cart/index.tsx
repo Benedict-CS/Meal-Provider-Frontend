@@ -4,9 +4,7 @@
 import type { ReactNode } from 'react'
 
 // MUI Imports
-import Zoom from '@mui/material/Zoom'
 import { styled } from '@mui/material/styles'
-import { useRouter } from 'next/navigation';
 
 interface ToCartProps {
   className?: string
@@ -23,14 +21,9 @@ const ToCartStyled = styled('div')(({ theme }) => ({
 const ToCart = (props: ToCartProps) => {
   // Props
   const { children, className } = props
-  const { push } = useRouter()
-
-  const handleClick = () => {
-    push('/apps/order-cart')
-  }
 
   return (
-    <ToCartStyled className={className} onClick={handleClick} role='presentation'>
+    <ToCartStyled className={className} role='presentation'>
       {children}
     </ToCartStyled>
   )
