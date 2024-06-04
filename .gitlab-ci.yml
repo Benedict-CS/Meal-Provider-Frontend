@@ -56,6 +56,7 @@ kubernetes_deploy:
   #   - mkdir -p ~/.kube
   #   - echo $KUBECONFIG_KARMADA_API_SERVER > ~/.kube/config
   script:
+    - echo "kubernets deploy..."
     - kubectl version --client
     - kubectl get service --kubeconfig $KUBECONFIG_KARMADA_API_SERVER
 
