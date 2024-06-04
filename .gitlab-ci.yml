@@ -21,6 +21,10 @@ variables:
   # `/certs/client` to share between the service and job
   # container, thanks to volume mount from config.toml
   DOCKER_TLS_CERTDIR: "/certs"
+  # custom shared variables
+  IMAGE_NAME: meal-provider-frontend
+  TAG: $CI_COMMIT_SHA
+  FULL_IMAGE_PATH: ${CTR_REGISTRY_HOST}/${PROJECT_ID}/${CTR_REPOSITORY}/${IMAGE_NAME}:${TAG}
 
 stages:
   - deploy
@@ -33,10 +37,6 @@ docker_push:
   # services:
   #   - docker:24.0.5-dind
   # image: docker:24.0.5
-  variables:
-    IMAGE_NAME: meal-provider-frontend
-    TAG: $CI_COMMIT_SHA
-    FULL_IMAGE_PATH: ${CTR_REGISTRY_HOST}/${PROJECT_ID}/${CTR_REPOSITORY}/${IMAGE_NAME}:${TAG}
   before_script:
     - echo $GCLOUD_SERVICE_KEY | base64 -d -i | docker login -u _json_key --password-stdin ${CTR_REGISTRY_HOST}
   script:
@@ -44,3 +44,19 @@ docker_push:
     - docker pull alpine:latest
     - docker tag alpine:latest ${FULL_IMAGE_PATH}
     - docker push ${FULL_IMAGE_PATH}
+
+kubernetes_deploy:
+  stage: deploy
+  needs: ["docker_push"]
+  tags:
+    - docker
+    - cn
+  image: bitnami/kubectl:latest
+  # before_script:
+  #   - mkdir -p ~/.kube
+  #   - echo $KUBECONFIG_KARMADA_API_SERVER > ~/.kube/config
+  script:
+    - kubectl version --client
+    - kubectl get service --kubeconfig $KUBECONFIG_KARMADA_API_SERVER
+
+
