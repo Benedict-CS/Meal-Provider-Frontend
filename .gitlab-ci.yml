@@ -6,6 +6,7 @@ docker_push:
   tags:
     - docker
     - cn
+  image: docker:19.03.12-dind
   variables:
     IMAGE_NAME: meal-provider-frontend
     TAG: $CI_COMMIT_SHA
@@ -20,6 +21,7 @@ docker_push:
     # Configure Docker to use Google Artifact Registry
     - gcloud auth configure-docker ${CTR_REGISTRY_HOST}
   script:
+    - docker --version
     - docker pull alpine:latest
     - docker tag alpine:latest ${FULL_IMAGE_PATH}
     - docker push ${FULL_IMAGE_PATH}
