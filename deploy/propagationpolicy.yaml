@@ -26,8 +26,8 @@ spec:
           - targetCluster:
               clusterNames:
                 - cn-gke-1
-            weight: 3
+            weight: 2
           - targetCluster:
               clusterNames:
                 - cn-gke-2
-            weight: 2
+            weight: 3
