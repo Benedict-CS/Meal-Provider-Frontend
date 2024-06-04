@@ -1,12 +1,22 @@
 stages:
-  - test
+  - deploy
 
-check_version:
-  stage: test
+docker_push:
+  stage: deploy
   tags:
     - docker
     - cn
-  image: docker:19.03.12-dind
+  image: google/cloud-sdk:latest
+  variables:
+    IMAGE_NAME: meal-provider-frontend
+    TAG: $CI_COMMIT_SHA
+  before_script:
+    # Decode and save the service account key file
+    - echo $GCLOUD_SERVICE_KEY | base64 --decode -i > ${CI_PROJECT_DIR}/gcloud-service-key.json
+    # Authenticate with Google Cloud
+    - gcloud auth activate-service-account --key-file=${CI_PROJECT_DIR}/gcloud-service-key.json
+    - gcloud --quiet config set project $PROJECT_ID
+    # Configure Docker to use Google Artifact Registry
+    - gcloud auth configure-docker ${CTR_REGISTRY_HOST}
   script:
-    - echo "Checking version..."
-    - docker --version
+    - docker push ${CTR_REGISTRY_HOST}/${PROJECT_ID}/${REPOSITORY}/${IMAGE_NAME}:${TAG}
