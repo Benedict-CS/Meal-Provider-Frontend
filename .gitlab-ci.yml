@@ -49,7 +49,7 @@ docker_push:
     # # Configure Docker to use Google Artifact Registry
     # - gcloud auth configure-docker ${CTR_REGISTRY_HOST}
     # - gcloud --version
-    - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin ${CTR_REGISTRY_HOST}
+    - echo $GCLOUD_SERVICE_KEY | docker login -u _json_key --password-stdin ${CTR_REGISTRY_HOST}
   script:
     - docker --version
     - docker pull alpine:latest
