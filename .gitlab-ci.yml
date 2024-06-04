@@ -30,16 +30,16 @@ docker_push:
   tags:
     - docker
     - cn
-  services:
-    - docker:24.0.5-dind
-    - google/cloud-sdk:latest
+  # services:
+  #   - docker:24.0.5-dind
   # image: google/cloud-sdk:latest
   variables:
     IMAGE_NAME: meal-provider-frontend
     TAG: $CI_COMMIT_SHA
     FULL_IMAGE_PATH: ${CTR_REGISTRY_HOST}/${PROJECT_ID}/${REPOSITORY}/${IMAGE_NAME}:${TAG}
   before_script:
-    # - curl -sSL https://sdk.cloud.google.com | bash
+    - apk add --no-cache curl bash
+    - curl -sSL https://sdk.cloud.google.com | bash
     # # Decode and save the service account key file
     # - echo $GCLOUD_SERVICE_KEY | base64 --decode -i > ${CI_PROJECT_DIR}/gcloud-service-key.json
     # # Authenticate with Google Cloud
