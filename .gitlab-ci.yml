@@ -44,6 +44,5 @@ kubernetes_deploy:
     - kubectl get service --kubeconfig $KUBECONFIG_KARMADA_API_SERVER
     - |
       for file in ./deploy/*.yaml; do
-        echo "Applying $file..."
         kubectl apply -f "$file" --kubeconfig $KUBECONFIG_KARMADA_API_SERVER
       done
