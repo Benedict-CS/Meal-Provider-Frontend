@@ -9,6 +9,7 @@ import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import type { Theme } from '@mui/material/styles'
+import type { InvoiceType } from '@/types/apps/invoiceTypes'
 
 // Third-party Imports
 import classnames from 'classnames'
@@ -16,31 +17,45 @@ import classnames from 'classnames'
 // Vars
 const data = [
   {
-    title: 24,
-    subtitle: 'Clients',
+    title: '0',
+    subtitle: 'Total Amount',
     icon: 'tabler-user'
   },
   {
-    title: 165,
-    subtitle: 'Invoices',
+    title: '0',
+    subtitle: 'Number of Orders',
     icon: 'tabler-file-invoice'
   },
   {
-    title: '$2.46k',
-    subtitle: 'Paid',
+    title: '0',
+    subtitle: 'Unpaid Amount',
     icon: 'tabler-checks'
   },
   {
-    title: '$8762',
-    subtitle: 'Unpaid',
+    title: '0',
+    subtitle: 'Number of Unpaid Orders',
     icon: 'tabler-circle-off'
   }
 ]
 
-const InvoiceCard = () => {
+// write function get number return string with comma
+function numberWithCommas(x: number) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+
+const InvoiceCard = ({ invoiceData }: { invoiceData: InvoiceType[] }) => {
   // Hooks
   const isBelowMdScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
   const isBelowSmScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'))
+  const total = invoiceData.reduce((acc, item) => acc + item.total, 0)
+  const unpaid = invoiceData.reduce((acc, item) => acc + item.balance, 0)
+  const count = invoiceData.length
+  const unpaidOrders = invoiceData.filter(invoice => invoice.balance > 0).length
+  data[0].title = numberWithCommas(total)
+  data[1].title = numberWithCommas(count)
+  data[2].title = numberWithCommas(unpaid)
+  data[3].title = numberWithCommas(unpaidOrders)
+
 
   return (
     <Card>

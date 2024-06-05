@@ -7,7 +7,7 @@ const currentMonth = now.toLocaleString('default', { month: 'short' })
 export const db: InvoiceType[] = [
   {
     id: '4987',
-    issuedDate: `13 ${currentMonth} ${now.getFullYear()}`,
+    issuedDate: `13 Apr ${now.getFullYear()}`,
     address: '7777 Mendez Plains',
     company: 'Hall-Robbins PLC',
     companyEmail: 'don85@johnson.com',
@@ -19,7 +19,7 @@ export const db: InvoiceType[] = [
     avatar: '',
     avatarColor: 'primary',
     invoiceStatus: 'Paid',
-    balance: '$724',
+    balance: 724,
     dueDate: `23 ${currentMonth} ${now.getFullYear()}`
   },
   {
@@ -83,7 +83,7 @@ export const db: InvoiceType[] = [
     total: 4056,
     avatar: '/images/avatars/4.png',
     invoiceStatus: 'Draft',
-    balance: '$815',
+    balance: 815,
     dueDate: `30 ${currentMonth} ${now.getFullYear()}`
   },
   {
@@ -117,7 +117,7 @@ export const db: InvoiceType[] = [
     avatar: '',
     avatarColor: 'success',
     invoiceStatus: 'Draft',
-    balance: '$407',
+    balance: 407,
     dueDate: `22 ${currentMonth} ${now.getFullYear()}`
   },
   {
@@ -133,7 +133,7 @@ export const db: InvoiceType[] = [
     total: 4309,
     avatar: '/images/avatars/5.png',
     invoiceStatus: 'Paid',
-    balance: '-$205',
+    balance: -205,
     dueDate: `10 ${currentMonth} ${now.getFullYear()}`
   }
 ]
