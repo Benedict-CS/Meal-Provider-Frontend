@@ -7,7 +7,6 @@ import type { NextRequestWithAuth } from 'next-auth/middleware'
 import { i18n } from '@configs/i18n'
 import { getLocalizedUrl, isUrlMissingLocale } from '@/utils/i18n'
 import { ensurePrefix, withoutSuffix } from '@/utils/string'
-import requestIp from 'request-ip'
 
 var HOME_PAGE_URL = '/en'
 
