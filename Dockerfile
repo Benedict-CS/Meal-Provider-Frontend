@@ -1,28 +1,20 @@
-FROM node:18-alpine 
+FROM node:18-alpine AS builder
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
 COPY . .
-COPY .env ./
 
-RUN npm install
-RUN npm run build
+RUN npm install --production&& npm run build
+
+FROM node:18-alpine AS runner
+WORKDIR /app
+
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/.env ./.env
+COPY --from=builder /app/node_modules ./node_modules
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "echo $NEXTAUTH_SECRET && node_modules/.bin/next start"]
-
-
-# --------------------
-
-# FROM node:18-alpine
-# WORKDIR /app
-
-# COPY --from=builder /app/next.config.js ./
-# COPY --from=builder /app/public ./public
-# COPY --from=builder /app/.next ./.next
-# # COPY --from=builder /app/node_modules ./node_modules
-
-# EXPOSE 3000
-
-# CMD ["sh", "-c", "echo $NEXTAUTH_SECRET && node_modules/.bin/next start"]
+CMD ["node_modules/.bin/next", "start"]
