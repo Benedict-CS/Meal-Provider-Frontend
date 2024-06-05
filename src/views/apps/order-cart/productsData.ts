@@ -62,6 +62,42 @@ export const initialProducts: Product[] = [
   },
   {
     id: '5',
+    name: '照燒煎豬排',
+    price: 115,
+    description: 'Hoeger-Powlowski',
+    vendor: 'Accessories',
+    inStock: false,
+    category: '雞',
+    image: '/images/food/6.png',
+    status: '',
+    quantity: '0'
+  },
+  {
+    id: '6',
+    name: '泰式椒麻雞',
+    price: 110,
+    description: 'Hoeger-Powlowski',
+    vendor: 'Accessories',
+    inStock: false,
+    category: '雞',
+    image: '/images/food/7.png',
+    status: '',
+    quantity: '0'
+  },
+  {
+    id: '7',
+    name: '酥炸大雞腿',
+    price: 125,
+    description: 'Hoeger-Powlowski',
+    vendor: 'Accessories',
+    inStock: false,
+    category: '雞',
+    image: '/images/food/8.png',
+    status: '',
+    quantity: '0'
+  },
+  {
+    id: '8',
     name: '黃金蒜香雞',
     price: 110,
     description: 'Hoeger-Powlowski',
