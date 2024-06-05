@@ -1,9 +1,9 @@
 'use client';
 
-import React, { use, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Card, CardActions, CardContent, CardMedia, Typography, Button, Grid, Box, Badge } from '@mui/material';
 import ToCart from '@core/components/to-cart'; // Import ToCart component
-import { Product } from './productsData';
+import { Product, initialProducts } from './productsData';
 
 interface StepOrderProps {
   handleNext: () => void;
@@ -20,14 +20,13 @@ interface ProductCardProps {
 const ProductCard = ({ product, onAddToCart, count }: ProductCardProps) => {
   return (
     <Card sx={{ maxWidth: 345, m: 2, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-      <img src={product.imageUrl} alt={product.name} />
-      {/* <CardMedia
+      <CardMedia
         component="img"
         height="194"
-        image={product.imageUrl}
+        image={product.image}
         alt={product.name}
         sx={{ objectFit: 'contain' }}
-      /> */}
+      />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {product.name}
@@ -65,27 +64,8 @@ const ProductCard = ({ product, onAddToCart, count }: ProductCardProps) => {
 };
 
 const StepOrder = ({ handleNext, cartItems, updateCartItems }: StepOrderProps) => {
-  const [products, setProducts] = useState<Product[]>(new Array<Product>());
+  const [products, setProducts] = useState<Product[]>(initialProducts);
   const cartCount = Array.from(cartItems.values()).reduce((acc, count) => acc + count, 0);
-
-  useEffect(() => {
-    fetch(`https://e58f-140-113-194-252.ngrok-free.app/api/food`)
-      .then((res) => res.json())
-      // change data to product and store it to products
-      .then((data) => {
-        setProducts(data.foods.map((product: any) => ({
-          id: { id: product.id },
-          name: product.name,
-          price: product.price,
-          description: product.description,
-          imageUrl: product.imageUrl
-        })));
-      })
-  }, []);
-
-  useEffect(() => {
-    console.log(products);
-  }, [products]);
 
   const handleAddToCart = (product: Product) => {
     const count = cartItems.get(product) || 0;
@@ -97,7 +77,7 @@ const StepOrder = ({ handleNext, cartItems, updateCartItems }: StepOrderProps) =
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2} justifyContent="flex-start">
           {products.map((product) => (
-            <Grid item key={product.id.id} xs={12} sm={6} md={4} lg={3}>
+            <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
               <ProductCard product={product} onAddToCart={handleAddToCart} count={cartItems.get(product) || 0} />
             </Grid>
           ))}

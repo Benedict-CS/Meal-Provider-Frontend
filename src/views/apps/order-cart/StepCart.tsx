@@ -37,13 +37,13 @@ const StepCart = ({ handleNext, cartItems, updateCartItems }: StepCartProps) => 
         <div className='border rounded'>
           {Array.from(cartItems).map(([product, count], index) => (
             <div key={index} className='flex flex-col sm:flex-row items-center gap-4 p-6 relative'>
-              <img height={140} width={140} src={product.imageUrl} alt={product.name} />
+              <img height={140} width={140} src={product.image} alt={product.name} />
               <div className='flex flex-col sm:flex-row items-center sm:justify-between is-full'>
                 <div className='flex flex-col items-center gap-2 sm:items-start'>
                   <Typography color='text.primary' className='font-medium'>
                     {product.name}
                   </Typography>
-                  {/* <Typography color='text.disabled'>Sold By: {product.vendor}</Typography> */}
+                  <Typography color='text.disabled'>Sold By: {product.vendor}</Typography>
                   <CustomTextField
                     type='number'
                     defaultValue={productQuantities.get(product)?.toString() || '0'}
