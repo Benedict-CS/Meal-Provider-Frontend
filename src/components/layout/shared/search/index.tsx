@@ -2,6 +2,7 @@
 
 // React Imports
 import type { ElementType, ReactNode } from 'react'
+import { Request, Response } from 'express';
 
 // Next Imports
 import { useParams, usePathname, useRouter } from 'next/navigation'
@@ -97,6 +98,30 @@ const NavSearch = () => {
 
   console.log(getIPAddress());
   console.log(window.location.host);
+
+  const express = require('express');
+  const app = express();
+
+  app.get('/get-ip', (req: Request, res: Response) => {
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    res.send({ ip: ip });
+  });
+
+  app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+
+  fetch('/get-ip')
+    .then(response => response.json())
+    .then(data => console.log("Your IP address is:", data.ip))
+    .catch(error => console.error('Error fetching IP:', error));
+
+  fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+      console.log("Your IP address is :", data.ip);
+    })
+    .catch(error => console.error('Error fetching IP:', error));
+
+
 
   return (
     <KBarProvider actions={searchActions}>
