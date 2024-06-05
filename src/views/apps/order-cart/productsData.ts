@@ -86,8 +86,8 @@ export const initialProducts: Product[] = [
   // },
   {
     id: '5',
-    name: '酥炸大雞腿',
-    price: 125,
+    name: 'test',
+    price: 100,
     description: 'Hoeger-Powlowski',
     vendor: 'Accessories',
     inStock: false,
