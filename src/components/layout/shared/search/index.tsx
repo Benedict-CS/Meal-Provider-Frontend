@@ -86,6 +86,18 @@ const NavSearch = () => {
         : router.push(getLocalizedUrl(item.url, locale as Locale))
   }))
 
+  function getIPAddress() {
+    const host = window.location.host;
+    const ipRegex = /^(?:\d{1,3}\.){3}\d{1,3}/;
+    if (ipRegex.test(host)) {
+      return host.split(':')[0]; // 移除端口号，如果有的话
+    }
+    return 'Not an IP address';
+  }
+
+  console.log(getIPAddress());
+  console.log(window.location.host);
+
   return (
     <KBarProvider actions={searchActions}>
       <ComponentWithUseKBar
