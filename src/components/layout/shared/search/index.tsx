@@ -89,18 +89,9 @@ const NavSearch = () => {
   return (
     <KBarProvider actions={searchActions}>
       <ComponentWithUseKBar
-        triggerClick
-        className='ts-nav-search-icon flex cursor-pointer'
-        {...((settings.layout === 'horizontal' || isBreakpointReached) && {
-          icon: (
-            <IconButton className='text-textPrimary'>
-              <i className='tabler-search' />
-            </IconButton>
-          )
-        })}
-      >
+        className='ts-nav-search-icon flex cursor-pointer'>
         <div className='flex items-center gap-2'>
-          Meal Provider
+          Meal Provider {location.host}
           {/* <IconButton className='text-textPrimary'>
             <i className='tabler-search' />
           </IconButton>
