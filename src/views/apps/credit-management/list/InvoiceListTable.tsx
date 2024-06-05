@@ -1,5 +1,4 @@
 'use client'
-
 import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
@@ -36,16 +35,9 @@ declare module '@tanstack/table-core' {
   }
 }
 
-type InvoiceTypeWithAction = InvoiceType & {
-  action?: string
-}
-
 const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
   const itemRank = rankItem(row.getValue(columnId), value)
-
-  addMeta({
-    itemRank
-  })
+  addMeta({ itemRank })
   return itemRank.passed
 }
 
@@ -59,38 +51,47 @@ const DebouncedInput = ({
   onChange: (value: string | number) => void
   debounce?: number
 } & Omit<TextFieldProps, 'onChange'>) => {
-
   const [value, setValue] = useState(initialValue)
-
   useEffect(() => {
     setValue(initialValue)
   }, [initialValue])
-
   useEffect(() => {
     const timeout = setTimeout(() => {
       onChange(value)
     }, debounce)
-
     return () => clearTimeout(timeout)
-
   }, [value])
-
   return <CustomTextField {...props} value={value} onChange={e => setValue(e.target.value)} />
 }
 
+type InvoiceTypeWithAction = InvoiceType & {
+  action?: string
+}
+
+const getAvatar = (params: Pick<InvoiceType, 'avatar' | 'name'>) => {
+  const { avatar, name } = params
+
+  if (avatar) {
+    return <CustomAvatar src={avatar} skin='light' size={34} />
+  } else {
+    return (
+      <CustomAvatar skin='light' size={34}>
+        {getInitials(name as string)}
+      </CustomAvatar>
+    )
+  }
+}
 
 const columnHelper = createColumnHelper<InvoiceTypeWithAction>()
 
 const InvoiceListTable = ({ invoiceData }: { invoiceData: InvoiceType[] }) => {
-
-
   const [rowSelection, setRowSelection] = useState({})
-
-  const [data, setData] = useState(...[invoiceData])
+  const [data, setData] = useState([...invoiceData])
   const [globalFilter, setGlobalFilter] = useState('')
-
+  const [selectedMonth, setSelectedMonth] = useState('')
 
   const { lang: locale } = useParams()
+
 
   const columns = useMemo<ColumnDef<InvoiceTypeWithAction, any>[]>(
     () => [
@@ -188,7 +189,6 @@ const InvoiceListTable = ({ invoiceData }: { invoiceData: InvoiceType[] }) => {
 
     []
   )
-
   const table = useReactTable({
     data: data as InvoiceType[],
     columns,
@@ -199,100 +199,38 @@ const InvoiceListTable = ({ invoiceData }: { invoiceData: InvoiceType[] }) => {
       rowSelection,
       globalFilter
     },
-    initialState: {
-      pagination: {
-        pageSize: 3
-      }
-    },
-    enableRowSelection: true,
-
-    globalFilterFn: fuzzyFilter,
-    onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
-    onGlobalFilterChange: setGlobalFilter,
     getFilteredRowModel: getFilteredRowModel(),
-    getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    getFacetedRowModel: getFacetedRowModel(),
-    getFacetedUniqueValues: getFacetedUniqueValues(),
-    getFacetedMinMaxValues: getFacetedMinMaxValues()
+    getSortedRowModel: getSortedRowModel(),
   })
-
-  const getAvatar = (params: Pick<InvoiceType, 'avatar' | 'name'>) => {
-    const { avatar, name } = params
-
-    if (avatar) {
-      return <CustomAvatar src={avatar} skin='light' size={34} />
-    } else {
-      return (
-        <CustomAvatar skin='light' size={34}>
-          {getInitials(name as string)}
-        </CustomAvatar>
-      )
-    }
-  }
 
   useEffect(() => {
     const filteredData = invoiceData?.filter(invoice => {
-      if (status && invoice.invoiceStatus.toLowerCase().replace(/\s+/g, '-') !== status) return false
-
+      if (selectedMonth) {
+        const month = new Date(invoice.issuedDate).getMonth() + 1
+        return month === parseInt(selectedMonth)
+      }
       return true
     })
-
     setData(filteredData)
-  }, [status, invoiceData, setData])
+  }, [selectedMonth, invoiceData])
 
   return (
     <Card>
-      <CardContent className='flex justify-between flex-col items-start md:items-center md:flex-row gap-4'>
-        <div className='flex items-center justify-between gap-4'>
-          <div className='flex items-center gap-2'>
-            <Typography className='hidden sm:block'>Show</Typography>
-            <CustomTextField
-              select
-              value={table.getState().pagination.pageSize}
-              onChange={e => table.setPageSize(Number(e.target.value))}
-              className='is-[70px]'
-            >
-              <MenuItem value='3'>3</MenuItem>
-              <MenuItem value='10'>10</MenuItem>
-              <MenuItem value='20'>20</MenuItem>
-            </CustomTextField>
-          </div>
-          <Button
-            variant='contained'
-            component={Link}
-            startIcon={<i className='tabler-plus' />}
-            href={getLocalizedUrl('apps/invoice/add', locale as Locale)}
-            className='is-full sm:is-auto'
-          >
-            Create Invoice
-          </Button>
-        </div>
-        <div className='flex flex-col sm:flex-row is-full sm:is-auto items-start sm:items-center gap-4'>
-          <DebouncedInput
-            value={globalFilter ?? ''}
-            onChange={value => setGlobalFilter(String(value))}
-            placeholder='Search Invoice'
-            className='is-[250px]'
-          />
-          <CustomTextField
-            select
-            id='select-status'
-            value={status}
-
-            className='is-[160px]'
-            SelectProps={{ displayEmpty: true }}
-          >
-            <MenuItem value=''>Invoice Status</MenuItem>
-            <MenuItem value='downloaded'>Downloaded</MenuItem>
-            <MenuItem value='draft'>Draft</MenuItem>
-            <MenuItem value='paid'>Paid</MenuItem>
-            <MenuItem value='partial-payment'>Partial Payment</MenuItem>
-            <MenuItem value='past-due'>Past Due</MenuItem>
-            <MenuItem value='sent'>Sent</MenuItem>
-          </CustomTextField>
-        </div>
+      <CardContent>
+        <CustomTextField
+          select
+          label="Month"
+          value={selectedMonth}
+          onChange={(e) => setSelectedMonth(e.target.value)}
+        >
+          {Array.from({ length: 12 }, (_, i) => (
+            <MenuItem key={i + 1} value={String(i + 1)}>
+              {`${i + 1}月`}
+            </MenuItem>
+          ))}
+        </CustomTextField>
       </CardContent>
       <div className='overflow-x-auto'>
         <table className={tableStyles.table}>
@@ -364,14 +302,3 @@ const InvoiceListTable = ({ invoiceData }: { invoiceData: InvoiceType[] }) => {
 }
 
 export default InvoiceListTable
-
-
-// --> version 1.0
-// --> Just basic function and simple layout
-
-
-// next step
-// ---------------------------------------------
-// 0. implement button function 有些按鍵沒有功能,要再加
-// 1. change fake data to real data 等後端
-// 2. change filename and url path 因為用他們的檔案改，所以名還沒改，先有功能
