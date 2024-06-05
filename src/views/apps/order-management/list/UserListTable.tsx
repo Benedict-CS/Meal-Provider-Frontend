@@ -57,7 +57,7 @@ const OrderListTable: React.FC<UserListTableProps> = ({ tableData }) => {
         <Typography variant="h5" component="div">
           Order List
         </Typography>
-        <TableContainer  style={{ background: 'transparent', boxShadow: 'none' }} component={Paper}>
+        <TableContainer style={{ background: 'transparent', boxShadow: 'none' }} component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -65,8 +65,8 @@ const OrderListTable: React.FC<UserListTableProps> = ({ tableData }) => {
                 <TableCell>Date</TableCell>
                 <TableCell>Customer</TableCell>
                 <TableCell>Payment</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Method</TableCell>
+                {/* <TableCell>Status</TableCell> */}
+                {/* <TableCell>Method</TableCell> */}
                 <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
@@ -80,14 +80,14 @@ const OrderListTable: React.FC<UserListTableProps> = ({ tableData }) => {
                   <TableCell>{row.date}</TableCell>
                   <TableCell>{row.customer}</TableCell>
                   <TableCell>{row.payment}</TableCell>
-                  <TableCell>{row.status}</TableCell>
-                  <TableCell>{row.method}</TableCell>
+                  {/* <TableCell>{row.status}</TableCell> */}
+                  {/* <TableCell>{row.method}</TableCell> */}
                   <TableCell>
                     <IconButton aria-label="edit">
-                    <i className="tabler-edit">Edit</i>
+                      <i className="tabler-edit">Edit</i>
                     </IconButton>
                     <IconButton aria-label="delete">
-                    <i className="tabler-trash">Delete</i>
+                      <i className="tabler-trash">Delete</i>
                     </IconButton>
                   </TableCell>
                 </TableRow>

@@ -141,8 +141,8 @@ const ProductManagement = () => {
             <TableCell>Name</TableCell>
             <TableCell>Price</TableCell>
             <TableCell align="center">Category</TableCell>
-            <TableCell align="center">Quantity</TableCell>
-            <TableCell align="center">Status</TableCell>
+            {/* <TableCell align="center">Quantity</TableCell>
+            <TableCell align="center">Status</TableCell> */}
             <TableCell align="center">Actions</TableCell>
           </TableRow>
         </TableHead>
@@ -155,8 +155,8 @@ const ProductManagement = () => {
               <TableCell>{product.name}</TableCell>
               <TableCell>{product.price}</TableCell>
               <TableCell align="center">{product.category}</TableCell>
-              <TableCell align="center">{product.quantity}</TableCell>
-              <TableCell align="center">{product.status}</TableCell>
+              {/* <TableCell align="center">{product.quantity}</TableCell>
+              <TableCell align="center">{product.status}</TableCell> */}
               <TableCell align="center">
                 <IconButton color="info" onClick={() => handleOpenForm(product)}>
                   <i className="tabler-edit">Edit</i>
