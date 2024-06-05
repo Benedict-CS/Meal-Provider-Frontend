@@ -36,7 +36,7 @@ const StepConfirmation = () => {
       <Grid item xs={12}>
         <div className='flex items-center flex-col text-center gap-4'>
           <Typography variant='h4'>Thank You! 😇</Typography>
-          <Typography>
+          {/* <Typography>
             Your order <span className='font-medium text-textPrimary'>#1536548131</span> has been placed!
           </Typography>
           <div>
@@ -48,10 +48,10 @@ const StepConfirmation = () => {
               If the email hasn&#39;t arrived within two minutes, please check your spam folder to see if the email was
               routed there.
             </Typography>
-          </div>
+          </div> */}
           <div className='flex items-center'>
             <i className='tabler-clock text-xl' />
-            <Typography>Time placed: 25/05/2020 13:35pm</Typography>
+            <Typography>Time placed: {(new Date()).toDateString()}</Typography>
           </div>
         </div>
       </Grid>
