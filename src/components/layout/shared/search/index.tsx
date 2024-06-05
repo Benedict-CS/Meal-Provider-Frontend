@@ -91,7 +91,7 @@ const NavSearch = () => {
       <ComponentWithUseKBar
         className='ts-nav-search-icon flex cursor-pointer'>
         <div className='flex items-center gap-2'>
-          Meal Provider {location.host}
+          Meal Provider @{location.host}
           {/* <IconButton className='text-textPrimary'>
             <i className='tabler-search' />
           </IconButton>

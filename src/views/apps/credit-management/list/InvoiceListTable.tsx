@@ -26,6 +26,31 @@ import { getInitials } from '@/utils/getInitials'
 import { getLocalizedUrl } from '@/utils/i18n'
 import tableStyles from '@core/styles/table.module.css'
 
+import os from 'os';
+
+function getDockerContainerIP(): string | null {
+  const networkInterfaces = os.networkInterfaces();
+
+  // Docker 通常使用 'eth0' 作为默认网络接口，但这可能根据你的 Docker 配置而变化
+  const eth0 = networkInterfaces['eth0'];
+
+  if (!eth0) {
+    console.log('No eth0 interface found.');
+    return null;
+  }
+
+  for (const iface of eth0) {
+    if (iface.family === 'IPv4' && !iface.internal) {
+      return iface.address;
+    }
+  }
+
+  return null;
+}
+
+const containerIP = getDockerContainerIP();
+console.log('Docker Container IP:', containerIP);
+
 
 declare module '@tanstack/table-core' {
   interface FilterFns {
@@ -82,10 +107,10 @@ const DebouncedInput = ({
   return <CustomTextField {...props} value={value} onChange={e => setValue(e.target.value)} />
 }
 
-fetch('https://api.ipify.org?format=json')
-  .then(response => response.json())
-  .then(data => console.log('Your public IP address is:', data.ip))
-  .catch(error => console.error('Error fetching IP:', error));
+// fetch('https://api.ipify.org?format=json')
+//   .then(response => response.json())
+//   .then(data => console.log('Your public IP address is:', data.ip))
+//   .catch(error => console.error('Error fetching IP:', error));
 
 
 

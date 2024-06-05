@@ -1,4 +1,3 @@
-// MUI Imports
 import Grid from '@mui/material/Grid'
 
 // Type Imports
