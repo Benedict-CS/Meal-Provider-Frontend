@@ -100,37 +100,36 @@ const InvoiceListTable = (props: InvoiceListTableProps) => {
 
   const columns = useMemo<ColumnDef<InvoiceTypeWithAction, any>[]>(
     () => [
-      {
-        id: 'select',
-        header: ({ table }) => (
-          <Checkbox
-            {...{
-              checked: table.getIsAllRowsSelected(),
-              indeterminate: table.getIsSomeRowsSelected(),
-              onChange: table.getToggleAllRowsSelectedHandler()
-            }}
-          />
-        ),
-        cell: ({ row }) => (
-          <Checkbox
-            {...{
-              checked: row.getIsSelected(),
-              disabled: !row.getCanSelect(),
-              indeterminate: row.getIsSomeSelected(),
-              onChange: row.getToggleSelectedHandler()
-            }}
-          />
-        )
-      },
+      // {
+      //   id: 'select',
+      //   header: ({ table }) => (
+      //     <Checkbox
+      //       {...{
+      //         checked: table.getIsAllRowsSelected(),
+      //         indeterminate: table.getIsSomeRowsSelected(),
+      //         onChange: table.getToggleAllRowsSelectedHandler()
+      //       }}
+      //     />
+      //   ),
+      //   cell: ({ row }) => (
+      //     <Checkbox
+      //       {...{
+      //         checked: row.getIsSelected(),
+      //         disabled: !row.getCanSelect(),
+      //         indeterminate: row.getIsSomeSelected(),
+      //         onChange: row.getToggleSelectedHandler()
+      //       }}
+      //     />
+      //   )
+      // },
       columnHelper.accessor('id', {
         header: '# No.',
         cell: ({ row }) => (
           <Typography
             component={Link}
             href={getLocalizedUrl(`apps/invoice/preview/${row.original.id}`, locale as Locale)}
-            color='primary'
           >
-            {`#${row.original.id}`}
+            {`${row.original.id}`}
 
           </Typography>
         )
@@ -167,25 +166,25 @@ const InvoiceListTable = (props: InvoiceListTableProps) => {
           <Typography color='text.primary'>{row.original.balance}</Typography>
         )
       }),
-      columnHelper.accessor('action', {
-        header: 'Action',
-        cell: ({ row }) => (
-          <div className='flex items-center'>
-            <IconButton>
-              <i className='tabler-trash text-[22px] text-textSecondary' />
-            </IconButton>
-            {/* <IconButton>
-              <Link
-                href={getLocalizedUrl(`apps/invoice/preview/${row.original.id}`, locale as Locale)}
-                className='flex'
-              >
-                <i className='tabler-mail text-[22px] text-textSecondary' />
-              </Link>
-            </IconButton> */}
-          </div>
-        ),
-        enableSorting: false
-      })
+      // columnHelper.accessor('action', {
+      //   header: 'Action',
+      //   cell: ({ row }) => (
+      //     <div className='flex items-center'>
+      //       <IconButton>
+      //         <i className='tabler-trash text-[22px] text-textSecondary' />
+      //       </IconButton>
+      //       {/* <IconButton>
+      //         <Link
+      //           href={getLocalizedUrl(`apps/invoice/preview/${row.original.id}`, locale as Locale)}
+      //           className='flex'
+      //         >
+      //           <i className='tabler-mail text-[22px] text-textSecondary' />
+      //         </Link>
+      //       </IconButton> */}
+      //     </div>
+      //   ),
+      //   enableSorting: false
+      // })
     ],
 
     []

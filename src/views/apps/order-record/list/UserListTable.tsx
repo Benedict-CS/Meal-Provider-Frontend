@@ -24,18 +24,18 @@ const createData = (order: string, date: string, customer: string, payment: stri
 };
 
 const rows = [
-  createData('#6979', 'Apr 15, 2023, 10:21', 'Christine Eason', 'Pending', 'Delivered', 'Credit'),
-  createData('#6624', 'Apr 17, 2023, 6:43', 'Fayre Screech', 'Failed', 'Refund', 'Credit'),
-  createData('#9305', 'Apr 17, 2023, 8:05', 'Pauline Pfaffe', 'Cancelled', 'Out for Delivery', 'Cash'),
-  createData('#9306', 'Apr 19, 2023, 12:05', 'Christine Pfaffe', 'Refund', 'Delivered', 'Cash'),
-  createData('#6979', 'Apr 15, 2023, 10:21', 'Christine Eason', 'Pending', 'Delivered', 'Credit'),
-  createData('#6624', 'Apr 17, 2023, 6:43', 'Fayre Screech', 'Failed', 'Delivered', 'Credit'),
-  createData('#9305', 'Apr 17, 2023, 8:05', 'Pauline Pfaffe', 'Cancelled', 'Out for Delivery', 'Cash'),
-  createData('#9306', 'Apr 19, 2023, 12:05', 'Christine Pfaffe', 'Refund', 'Delivered', 'Cash'),
-  createData('#6979', 'Apr 15, 2023, 10:21', 'Christine Eason', 'Pending', 'Delivered', 'Credit'),
-  createData('#6624', 'Apr 17, 2023, 6:43', 'Fayre Screech', 'Failed', 'Delivered', 'Credit'),
-  createData('#9305', 'Apr 17, 2023, 8:05', 'Pauline Pfaffe', 'Cancelled', 'Out for Delivery', 'Cash'),
-  createData('#9306', 'Apr 19, 2023, 12:05', 'Christine Pfaffe', 'Refund', 'Delivered', 'Cash'),
+  createData('6979', 'Apr 15, 2023, 10:21', 'Christine Eason', 'Pending', 'Delivered', 'Credit'),
+  createData('6624', 'Apr 17, 2023, 6:43', 'Fayre Screech', 'Failed', 'Refund', 'Credit'),
+  createData('9305', 'Apr 17, 2023, 8:05', 'Pauline Pfaffe', 'Cancelled', 'Out for Delivery', 'Cash'),
+  createData('9306', 'Apr 19, 2023, 12:05', 'Christine Pfaffe', 'Refund', 'Delivered', 'Cash'),
+  createData('6979', 'Apr 15, 2023, 10:21', 'Christine Eason', 'Pending', 'Delivered', 'Credit'),
+  createData('6624', 'Apr 17, 2023, 6:43', 'Fayre Screech', 'Failed', 'Delivered', 'Credit'),
+  createData('9305', 'Apr 17, 2023, 8:05', 'Pauline Pfaffe', 'Cancelled', 'Out for Delivery', 'Cash'),
+  createData('9306', 'Apr 19, 2023, 12:05', 'Christine Pfaffe', 'Refund', 'Delivered', 'Cash'),
+  createData('6979', 'Apr 15, 2023, 10:21', 'Christine Eason', 'Pending', 'Delivered', 'Credit'),
+  createData('6624', 'Apr 17, 2023, 6:43', 'Fayre Screech', 'Failed', 'Delivered', 'Credit'),
+  createData('9305', 'Apr 17, 2023, 8:05', 'Pauline Pfaffe', 'Cancelled', 'Out for Delivery', 'Cash'),
+  createData('9306', 'Apr 19, 2023, 12:05', 'Christine Pfaffe', 'Refund', 'Delivered', 'Cash'),
   // Add more rows as needed
 ];
 const OrderListTable: React.FC<UserListTableProps> = ({ tableData }) => {
@@ -57,7 +57,7 @@ const OrderListTable: React.FC<UserListTableProps> = ({ tableData }) => {
         <Typography variant="h5" component="div">
           Order List
         </Typography>
-        <TableContainer  style={{ background: 'transparent', boxShadow: 'none' }} component={Paper}>
+        <TableContainer style={{ background: 'transparent', boxShadow: 'none' }} component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -66,8 +66,8 @@ const OrderListTable: React.FC<UserListTableProps> = ({ tableData }) => {
                 {/* <TableCell>Customer</TableCell> */}
                 <TableCell>Payment</TableCell>
                 <TableCell>Status</TableCell>
-                <TableCell>Method</TableCell>
-                <TableCell>Actions</TableCell>
+                {/* <TableCell>Method</TableCell>
+                <TableCell>Actions</TableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -81,15 +81,15 @@ const OrderListTable: React.FC<UserListTableProps> = ({ tableData }) => {
                   {/* <TableCell>{row.customer}</TableCell> */}
                   <TableCell>{row.payment}</TableCell>
                   <TableCell>{row.status}</TableCell>
-                  <TableCell>{row.method}</TableCell>
-                  <TableCell>
-                    {/* <IconButton aria-label="edit">
+                  {/* <TableCell>{row.method}</TableCell> */}
+                  {/* <TableCell>
+                    <IconButton aria-label="edit">
                     <i className="tabler-edit">Edit</i>
-                    </IconButton> */}
+                    </IconButton>
                     <IconButton aria-label="delete">
                     <i className="tabler-trash">Delete</i>
                     </IconButton>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
