@@ -9,6 +9,7 @@ import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import type { Theme } from '@mui/material/styles'
+import type { InvoiceType } from '@/types/apps/invoiceTypes'
 
 // Third-party Imports
 import classnames from 'classnames'
