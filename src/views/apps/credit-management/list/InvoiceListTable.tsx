@@ -124,11 +124,16 @@ const getAvatar = (params: Pick<InvoiceType, 'avatar' | 'name'>) => {
 
 const columnHelper = createColumnHelper<InvoiceTypeWithAction>()
 
-const InvoiceListTable = ({ invoiceData }: { invoiceData: InvoiceType[] }) => {
+type InvoiceListTableProps = {
+  invoiceData: InvoiceType[]
+  selectedMonth: string
+  updateSelectMonth: (value: string) => void
+}
+
+const InvoiceListTable = (props: InvoiceListTableProps) => {
+  const { invoiceData, selectedMonth, updateSelectMonth } = props
   const [rowSelection, setRowSelection] = useState({})
-  const [data, setData] = useState([...invoiceData])
   const [globalFilter, setGlobalFilter] = useState('')
-  const [selectedMonth, setSelectedMonth] = useState('')
 
   const { lang: locale } = useParams()
 
@@ -198,13 +203,9 @@ const InvoiceListTable = ({ invoiceData }: { invoiceData: InvoiceType[] }) => {
       }),
       columnHelper.accessor('balance', {
         header: 'Balance',
-        cell: ({ row }) => {
-          return row.original.balance === 0 ? (
-            <Chip label='Paid' color='success' size='small' variant='tonal' />
-          ) : (
-            <Typography color='text.primary'>{row.original.balance}</Typography>
-          )
-        }
+        cell: ({ row }) => (
+          <Typography color='text.primary'>{row.original.balance}</Typography>
+        )
       }),
       columnHelper.accessor('action', {
         header: 'Action',
@@ -230,7 +231,7 @@ const InvoiceListTable = ({ invoiceData }: { invoiceData: InvoiceType[] }) => {
     []
   )
   const table = useReactTable({
-    data: data as InvoiceType[],
+    data: invoiceData as InvoiceType[],
     columns,
     filterFns: {
       fuzzy: fuzzyFilter
@@ -245,17 +246,6 @@ const InvoiceListTable = ({ invoiceData }: { invoiceData: InvoiceType[] }) => {
     getSortedRowModel: getSortedRowModel(),
   })
 
-  useEffect(() => {
-    const filteredData = invoiceData?.filter(invoice => {
-      if (selectedMonth) {
-        const month = new Date(invoice.issuedDate).getMonth() + 1
-        return month === parseInt(selectedMonth)
-      }
-      return true
-    })
-    setData(filteredData)
-  }, [selectedMonth, invoiceData])
-
   return (
     <Card>
       <CardContent>
@@ -263,7 +253,7 @@ const InvoiceListTable = ({ invoiceData }: { invoiceData: InvoiceType[] }) => {
           select
           label="Month"
           value={selectedMonth}
-          onChange={(e) => setSelectedMonth(e.target.value)}
+          onChange={(e) => updateSelectMonth(e.target.value)}
         >
           {Array.from({ length: 12 }, (_, i) => (
             <MenuItem key={i + 1} value={String(i + 1)}>

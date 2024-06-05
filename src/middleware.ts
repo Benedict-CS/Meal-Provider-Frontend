@@ -47,7 +47,6 @@ export default withAuth(
     const guestRoutes = ['login', 'register', 'forgot-password']
     const sharedRoutes = ['shared-route']
     const privateRoute = ![...guestRoutes, ...sharedRoutes].some(route => pathname.endsWith(route))
-    console.log(request)
 
     if (token == "admin@gmail.com") {
       HOME_PAGE_URL = "/en/apps/menu-management"

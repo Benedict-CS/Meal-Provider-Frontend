@@ -27,7 +27,7 @@ export type InvoiceType = {
   avatarColor?: string
   issuedDate: string
   companyEmail: string
-  balance: string | number
+  balance: number
   invoiceStatus: InvoiceStatus
 }
 
