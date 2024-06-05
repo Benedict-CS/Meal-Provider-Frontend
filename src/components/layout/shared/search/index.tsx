@@ -2,7 +2,6 @@
 
 // React Imports
 import type { ElementType, ReactNode } from 'react'
-import { Request, Response } from 'express';
 
 // Next Imports
 import { useParams, usePathname, useRouter } from 'next/navigation'
@@ -86,40 +85,6 @@ const NavSearch = () => {
         ? window.open(item.url, '_blank')
         : router.push(getLocalizedUrl(item.url, locale as Locale))
   }))
-
-  function getIPAddress() {
-    const host = window.location.host;
-    const ipRegex = /^(?:\d{1,3}\.){3}\d{1,3}/;
-    if (ipRegex.test(host)) {
-      return host.split(':')[0]; // 移除端口号，如果有的话
-    }
-    return 'Not an IP address';
-  }
-
-  console.log(getIPAddress());
-  console.log(window.location.host);
-
-  const express = require('express');
-  const app = express();
-
-  app.get('/get-ip', (req: Request, res: Response) => {
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    res.send({ ip: ip });
-  });
-
-  app.listen(3000, () => console.log('Server running on http://localhost:3000'));
-
-  fetch('/get-ip')
-    .then(response => response.json())
-    .then(data => console.log("Your IP address is:", data.ip))
-    .catch(error => console.error('Error fetching IP:', error));
-
-  fetch('https://api.ipify.org?format=json')
-    .then(response => response.json())
-    .then(data => {
-      console.log("Your IP address is :", data.ip);
-    })
-    .catch(error => console.error('Error fetching IP:', error));
 
 
 

@@ -8,6 +8,8 @@ import { i18n } from '@configs/i18n'
 import { getLocalizedUrl, isUrlMissingLocale } from '@/utils/i18n'
 import { ensurePrefix, withoutSuffix } from '@/utils/string'
 
+
+
 var HOME_PAGE_URL = '/en'
 
 const getLocale = (request: NextRequest): string | undefined => {
