@@ -7,6 +7,7 @@ import type { NextRequestWithAuth } from 'next-auth/middleware'
 import { i18n } from '@configs/i18n'
 import { getLocalizedUrl, isUrlMissingLocale } from '@/utils/i18n'
 import { ensurePrefix, withoutSuffix } from '@/utils/string'
+import requestIp from 'request-ip'
 
 var HOME_PAGE_URL = '/en'
 
@@ -47,6 +48,7 @@ export default withAuth(
     const guestRoutes = ['login', 'register', 'forgot-password']
     const sharedRoutes = ['shared-route']
     const privateRoute = ![...guestRoutes, ...sharedRoutes].some(route => pathname.endsWith(route))
+    console.log(request)
 
     if (token == "admin@gmail.com") {
       HOME_PAGE_URL = "/en/apps/menu-management"
