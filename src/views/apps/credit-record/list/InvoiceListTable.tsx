@@ -81,8 +81,14 @@ const DebouncedInput = ({
 
 const columnHelper = createColumnHelper<InvoiceTypeWithAction>()
 
-const InvoiceListTable = ({ invoiceData }: { invoiceData: InvoiceType[] }) => {
+type InvoiceListTableProps = {
+  invoiceData: InvoiceType[]
+  selectedMonth: string
+  updateSelectMonth: (value: string) => void
+}
 
+const InvoiceListTable = (props: InvoiceListTableProps) => {
+  const { invoiceData, selectedMonth, updateSelectMonth } = props
 
   const [rowSelection, setRowSelection] = useState({})
 
@@ -157,13 +163,9 @@ const InvoiceListTable = ({ invoiceData }: { invoiceData: InvoiceType[] }) => {
       }),
       columnHelper.accessor('balance', {
         header: 'Balance',
-        cell: ({ row }) => {
-          return row.original.balance === 0 ? (
-            <Chip label='Paid' color='success' size='small' variant='tonal' />
-          ) : (
-            <Typography color='text.primary'>{row.original.balance}</Typography>
-          )
-        }
+        cell: ({ row }) => (
+          <Typography color='text.primary'>{row.original.balance}</Typography>
+        )
       }),
       columnHelper.accessor('action', {
         header: 'Action',
@@ -244,55 +246,19 @@ const InvoiceListTable = ({ invoiceData }: { invoiceData: InvoiceType[] }) => {
 
   return (
     <Card>
-      <CardContent className='flex justify-between flex-col items-start md:items-center md:flex-row gap-4'>
-        <div className='flex items-center justify-between gap-4'>
-          <div className='flex items-center gap-2'>
-            <Typography className='hidden sm:block'>Show</Typography>
-            <CustomTextField
-              select
-              value={table.getState().pagination.pageSize}
-              onChange={e => table.setPageSize(Number(e.target.value))}
-              className='is-[70px]'
-            >
-              <MenuItem value='4'>4</MenuItem>
-              <MenuItem value='10'>10</MenuItem>
-              <MenuItem value='20'>20</MenuItem>
-            </CustomTextField>
-          </div>
-          <Button
-            variant='contained'
-            component={Link}
-            startIcon={<i className='tabler-plus' />}
-            href={getLocalizedUrl('apps/invoice/add', locale as Locale)}
-            className='is-full sm:is-auto'
-          >
-            Create Invoice
-          </Button>
-        </div>
-        <div className='flex flex-col sm:flex-row is-full sm:is-auto items-start sm:items-center gap-4'>
-          <DebouncedInput
-            value={globalFilter ?? ''}
-            onChange={value => setGlobalFilter(String(value))}
-            placeholder='Search Invoice'
-            className='is-[250px]'
-          />
-          <CustomTextField
-            select
-            id='select-status'
-            value={status}
-
-            className='is-[160px]'
-            SelectProps={{ displayEmpty: true }}
-          >
-            <MenuItem value=''>Invoice Status</MenuItem>
-            <MenuItem value='downloaded'>Downloaded</MenuItem>
-            <MenuItem value='draft'>Draft</MenuItem>
-            <MenuItem value='paid'>Paid</MenuItem>
-            <MenuItem value='partial-payment'>Partial Payment</MenuItem>
-            <MenuItem value='past-due'>Past Due</MenuItem>
-            <MenuItem value='sent'>Sent</MenuItem>
-          </CustomTextField>
-        </div>
+      <CardContent>
+        <CustomTextField
+          select
+          label="Month"
+          value={selectedMonth}
+          onChange={(e) => updateSelectMonth(e.target.value)}
+        >
+          {Array.from({ length: 12 }, (_, i) => (
+            <MenuItem key={i + 1} value={String(i + 1)}>
+              {`${i + 1}月`}
+            </MenuItem>
+          ))}
+        </CustomTextField>
       </CardContent>
       <div className='overflow-x-auto'>
         <table className={tableStyles.table}>
