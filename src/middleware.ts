@@ -7,8 +7,6 @@ import type { NextRequestWithAuth } from 'next-auth/middleware'
 import { i18n } from '@configs/i18n'
 import { getLocalizedUrl, isUrlMissingLocale } from '@/utils/i18n'
 import { ensurePrefix, withoutSuffix } from '@/utils/string'
-import express from 'express';
-import { env } from 'process';
 
 // const app = express();
 // const port = 3000;
@@ -62,7 +60,9 @@ export default withAuth(
     const privateRoute = ![...guestRoutes, ...sharedRoutes].some(route => pathname.endsWith(route))
 
 
-    console.log(env.HOSTNAME)
+
+
+
     if (token == "admin@gmail.com") {
       HOME_PAGE_URL = "/en/apps/menu-management"
     } else {

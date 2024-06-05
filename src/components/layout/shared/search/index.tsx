@@ -33,6 +33,9 @@ import StyledKBarAnimator from './StyledKBarAnimator'
 // Data Imports
 import data from '@/data/searchData'
 import Width from '@/app/[lang]/menu-examples/vertical-menu/vertical-nav/width/page'
+import { env } from 'process';
+
+console.log(env.HOSTNAME)
 
 type ComponentWithUseKBarProps = Partial<ChildrenType> & {
   className?: string
