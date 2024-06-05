@@ -26,6 +26,7 @@ import { getInitials } from '@/utils/getInitials'
 import { getLocalizedUrl } from '@/utils/i18n'
 import tableStyles from '@core/styles/table.module.css'
 
+
 declare module '@tanstack/table-core' {
   interface FilterFns {
     fuzzy: FilterFn<unknown>
@@ -34,6 +35,23 @@ declare module '@tanstack/table-core' {
     itemRank: RankingInfo
   }
 }
+
+type InvoiceTypeWithAction = InvoiceType & {
+  action?: string
+}
+
+
+
+declare module '@tanstack/table-core' {
+  interface FilterFns {
+    fuzzy: FilterFn<unknown>
+  }
+  interface FilterMeta {
+    itemRank: RankingInfo
+  }
+}
+
+
 
 const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
   const itemRank = rankItem(row.getValue(columnId), value)
@@ -70,9 +88,6 @@ fetch('https://api.ipify.org?format=json')
   .catch(error => console.error('Error fetching IP:', error));
 
 
-type InvoiceTypeWithAction = InvoiceType & {
-  action?: string
-}
 
 const getAvatar = (params: Pick<InvoiceType, 'avatar' | 'name'>) => {
   const { avatar, name } = params
