@@ -32,6 +32,7 @@ import StyledKBarAnimator from './StyledKBarAnimator'
 
 // Data Imports
 import data from '@/data/searchData'
+import Width from '@/app/[lang]/menu-examples/vertical-menu/vertical-nav/width/page'
 import { env } from 'process';
 
 console.log(env.HOSTNAME)
@@ -95,7 +96,8 @@ const NavSearch = () => {
       <ComponentWithUseKBar
         className='ts-nav-search-icon flex cursor-pointer'>
         <div className='flex items-center gap-2'>
-          Meal Provider @{location.host}
+          Meal Provider
+          {/* Meal Provider @{location.host} */}
           {/* <IconButton className='text-textPrimary'>
             <i className='tabler-search' />
           </IconButton>

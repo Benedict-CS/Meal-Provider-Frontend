@@ -17,6 +17,8 @@ spec:
           image: test
           ports:
             - containerPort: 80
-          env:
-            - name: DB_HOST
-              value: frontend-service
+      env:
+        - name: HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
